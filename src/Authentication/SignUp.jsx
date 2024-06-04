@@ -40,6 +40,10 @@ const SignUp = () => {
             setError('Must have an UpperCase character');
             return;
         }
+        else if (!/[0-9]/.test(password)) {
+            setError('Must have a Numeric character');
+            return;
+        }
         else if (!/[a-z]/.test(password)) {
             setError('Must have a LowerCase character');
             return;
