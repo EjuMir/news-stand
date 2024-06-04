@@ -6,8 +6,9 @@ import { Tooltip } from 'react-tooltip'
 import { IoHome } from "react-icons/io5";
 import { ImBooks } from "react-icons/im";
 import { AiFillFileAdd } from "react-icons/ai";
-import { FaHandHoldingMedical } from "react-icons/fa";
 import { AuthFirebase } from "../../Authentication/Firebase";
+import { MdArticle, MdSubscriptions, MdWorkspacePremium } from "react-icons/md";
+import { RxDashboard } from "react-icons/rx";
 
 const Navbar = () => {
 
@@ -33,9 +34,24 @@ const Navbar = () => {
 
     const navLink = <>
         <NavLink to='/' data-tooltip-content={'Home'} data-tooltip-id="home" className={({ isActive }) => isActive ? 'font-bold text-3xl rounded-lg px-4 p-2' : 'text-white font-bold text-[22px] px-4 py-2'} ><Tooltip id="home"></Tooltip><IoHome></IoHome></NavLink>
-        <NavLink to='/allBooks' data-tooltip-content={'All Books'} data-tooltip-id="allBooks" className={({ isActive }) => isActive ? 'font-bold text-3xl rounded-lg px-4 p-2' : 'text-white font-bold text-[24px] px-4 py-2'} ><Tooltip id="allBooks"></Tooltip><ImBooks></ImBooks></NavLink>
-        <NavLink to='/addBooks' data-tooltip-content={'Add Book'} data-tooltip-id="addBooks" className={({ isActive }) => isActive ? 'font-bold rounded-lg text-3xl px-4 p-2' : 'text-white font-bold text-[22px] px-4 py-2'} ><Tooltip id="addBooks"></Tooltip><AiFillFileAdd></AiFillFileAdd></NavLink>
-        <NavLink to='/borrowedBooks' data-tooltip-content={'Borrow Books'} data-tooltip-id="borrowBooks" className={({ isActive }) => isActive ? 'font-bold rounded-lg text-3xl px-4 p-2' : 'text-white font-bold text-[22px] px-4 py-2'} ><Tooltip id="borrowBooks"></Tooltip><FaHandHoldingMedical></FaHandHoldingMedical></NavLink>
+        <NavLink to='/allArticle' data-tooltip-content={'All Article'} data-tooltip-id="allArticle" className={({ isActive }) => isActive ? 'font-bold text-3xl rounded-lg px-4 p-2' : 'text-white font-bold text-[24px] px-4 py-2'} ><Tooltip id="allArticle"></Tooltip><ImBooks></ImBooks></NavLink>
+
+        <NavLink to='/subscription' data-tooltip-content={'Subscription'} data-tooltip-id="subscription" className={({ isActive }) => isActive ? 'font-bold rounded-lg text-3xl px-4 p-2' : 'text-white font-bold text-[22px] px-4 py-2'} ><Tooltip id="subscription"></Tooltip><MdSubscriptions></MdSubscriptions></NavLink>
+        {/* dashboard will be conditional */}
+        <NavLink to='/dashboard' data-tooltip-content={'Dashboard'} data-tooltip-id="dashboard" className={({ isActive }) => isActive ? 'font-bold rounded-lg text-3xl px-4 p-2' : 'text-white font-bold text-[22px] px-4 py-2'} ><Tooltip id="dashboard"></Tooltip><RxDashboard></RxDashboard></NavLink>
+
+        <div className="dropdown">
+            <div tabIndex={0} role="button" className="btn btn-ghost">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h8m-8 6h16" /></svg>
+            </div>
+            <ul tabIndex={0} className="menu menu-sm dropdown-content mt-3 z-[2] p-2 shadow bg-red-500 rounded-box w-20">
+                <NavLink to='/addArticle' data-tooltip-content={'Add Article'} data-tooltip-id="addArticle" className={({ isActive }) => isActive ? 'font-bold rounded-lg text-3xl px-4 p-2' : 'text-white font-bold text-[22px] px-4 py-2'} ><Tooltip id="addArticle"></Tooltip><AiFillFileAdd></AiFillFileAdd></NavLink>
+                <NavLink to='/myArticles' data-tooltip-content={'My Articles'} data-tooltip-id="myArticles" className={({ isActive }) => isActive ? 'font-bold rounded-lg text-3xl px-4 p-2' : 'text-white font-bold text-[22px] px-4 py-2'} ><Tooltip id="myArticles"></Tooltip><MdArticle></MdArticle></NavLink>
+                {/* premium articles will be conditional */}
+                <NavLink to='/premiumArticles' data-tooltip-content={'Premium Articles'} data-tooltip-id="premiumArticles" className={({ isActive }) => isActive ? 'font-bold rounded-lg text-3xl px-4 p-2' : 'text-white font-bold text-[22px] px-4 py-2'} ><Tooltip id="premiumArticles"></Tooltip><MdWorkspacePremium></MdWorkspacePremium></NavLink>
+            </ul>
+        </div>
+
         <div className="lg:text-center lg:my-auto">
             <input onChange={handleChange} type="checkbox" className="toggle theme-controller bg-red-400 border-white [--tglbg:theme(colors.white)] checked:bg-red-300 checked:border-blue-800 checked:[--tglbg:theme(colors.black)] row-start-1 col-start-1 col-span-2" />
         </div>
@@ -49,7 +65,16 @@ const Navbar = () => {
                         <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h8m-8 6h16" /></svg>
                     </div>
                     <ul tabIndex={0} className="menu menu-sm dropdown-content mt-3 z-[2] p-2 shadow bg-red-500 rounded-box w-20">
-                        {navLink}
+                        <NavLink to='/' data-tooltip-content={'Home'} data-tooltip-id="home" className={({ isActive }) => isActive ? 'font-bold text-3xl rounded-lg px-4 p-2' : 'text-white font-bold text-[22px] px-4 py-2'} ><Tooltip id="home"></Tooltip><IoHome></IoHome></NavLink>
+                        <NavLink to='/allArticle' data-tooltip-content={'All Article'} data-tooltip-id="allArticle" className={({ isActive }) => isActive ? 'font-bold text-3xl rounded-lg px-4 p-2' : 'text-white font-bold text-[24px] px-4 py-2'} ><Tooltip id="allArticle"></Tooltip><ImBooks></ImBooks></NavLink>
+
+                        <NavLink to='/subscription' data-tooltip-content={'Subscription'} data-tooltip-id="subscription" className={({ isActive }) => isActive ? 'font-bold rounded-lg text-3xl px-4 p-2' : 'text-white font-bold text-[22px] px-4 py-2'} ><Tooltip id="subscription"></Tooltip><MdSubscriptions></MdSubscriptions></NavLink>
+                        {/* dashboard will be conditional */}
+                        <NavLink to='/dashboard' data-tooltip-content={'Dashboard'} data-tooltip-id="dashboard" className={({ isActive }) => isActive ? 'font-bold rounded-lg text-3xl px-4 p-2' : 'text-white font-bold text-[22px] px-4 py-2'} ><Tooltip id="dashboard"></Tooltip><RxDashboard></RxDashboard></NavLink>
+                        <NavLink to='/addArticle' data-tooltip-content={'Add Article'} data-tooltip-id="addArticle" className={({ isActive }) => isActive ? 'font-bold rounded-lg text-3xl px-4 p-2' : 'text-white font-bold text-[22px] px-4 py-2'} ><Tooltip id="addArticle"></Tooltip><AiFillFileAdd></AiFillFileAdd></NavLink>
+                        <NavLink to='/myArticles' data-tooltip-content={'My Articles'} data-tooltip-id="myArticles" className={({ isActive }) => isActive ? 'font-bold rounded-lg text-3xl px-4 p-2' : 'text-white font-bold text-[22px] px-4 py-2'} ><Tooltip id="myArticles"></Tooltip><MdArticle></MdArticle></NavLink>
+                        {/* premium articles will be conditional */}
+                        <NavLink to='/premiumArticles' data-tooltip-content={'Premium Articles'} data-tooltip-id="premiumArticles" className={({ isActive }) => isActive ? 'font-bold rounded-lg text-3xl px-4 p-2' : 'text-white font-bold text-[22px] px-4 py-2'} ><Tooltip id="premiumArticles"></Tooltip><MdWorkspacePremium></MdWorkspacePremium></NavLink>
                     </ul>
                 </div>
                 <NavLink to='/'>
@@ -74,10 +99,10 @@ const Navbar = () => {
                 }
 
                 {
-                   user && <div className="w-8 h-8" data-tooltip-content={user && user.displayName} data-tooltip-id="profile">
-                   <Tooltip id="profile"></Tooltip>
-                   <img className="w-8 h-8 rounded-2xl" src={user? user?.photoURL:<CgProfile className="w-8 h-8"></CgProfile>} />
-                   </div>
+                    user && <div className="w-8 h-8" data-tooltip-content={user && user.displayName} data-tooltip-id="profile">
+                        <Tooltip id="profile"></Tooltip>
+                        <img className="w-8 h-8 rounded-2xl" src={user ? user?.photoURL : <CgProfile className="w-8 h-8"></CgProfile>} />
+                    </div>
                 }
             </div>
         </div>
