@@ -91,19 +91,19 @@ const Navbar = () => {
             </div>
 
             <div className="navbar-end gap-2">
-
-                <NavLink to='/signUp' className={({isActive})=>isActive?'btn bg-black text-white font-bold border-none':'btn bg-white text-red-500 font-bold border-none'}>Sign Up</NavLink>
-
                 {
-                    user ? <a onClick={() => logOut()} className="btn bg-red-500 text-white font-bold">Sign Out</a> : <NavLink to='/signIn' className={({isActive})=>isActive?'btn bg-black text-white font-bold border-none':'btn bg-white text-red-500 font-bold border-none'}>Sign In</NavLink>
+                    user ? <a onClick={() => logOut()} className="btn bg-red-400 text-white font-bold">Sign Out</a> : <div className="flex gap-2">
+                        <NavLink to='/signUp' className={({isActive})=>isActive?'btn bg-black text-white font-bold border-none':'btn bg-white text-red-500 font-bold border-none'}>Sign Up</NavLink>
+                        <NavLink to='/signIn' className={({isActive})=>isActive?'btn bg-black text-white font-bold border-none':'btn bg-white text-red-500 font-bold border-none'}>Sign In</NavLink>
+                        </div>
 
                 }
 
                 {
-                    user && <div className="w-8 h-8" data-tooltip-content={user && user.displayName} data-tooltip-id="profile">
+                    user && <NavLink to='/userProfile'><div className="w-8 h-8" data-tooltip-content={user && user.displayName} data-tooltip-id="profile">
                         <Tooltip id="profile"></Tooltip>
                         <img className="w-8 h-8 rounded-2xl" src={user ? user?.photoURL : <CgProfile className="w-8 h-8"></CgProfile>} />
-                    </div>
+                    </div></NavLink>
                 }
             </div>
         </div>

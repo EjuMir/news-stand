@@ -11,6 +11,7 @@ import Subscription from "../Layout/Pages/Subscription/Subscription";
 import AddArticle from "../Layout/Pages/AddArticle/AddArticle";
 import MyArticle from "../Layout/Pages/MyArticle/MyArticle";
 import PremiumArticles from "../Layout/Pages/PremiumArticles/PremiumArticles";
+import UserProfile from "../Layout/Pages/UserProfile/UserProfile";
 
 export const router = createBrowserRouter([
   {
@@ -49,6 +50,10 @@ export const router = createBrowserRouter([
       {
         path:'/premiumArticles',
         element: <PremiumArticles></PremiumArticles>
+      },
+      {
+        path:'/userProfile',
+        element:<UserProfile></UserProfile>
       }
     ]
   },

@@ -38,10 +38,6 @@ export default function App() {
                         slidesPerView: 3,
                         spaceBetween: 40,
                     },
-                    '@1.50': {
-                        slidesPerView: 4,
-                        spaceBetween: 50,
-                    },
                 }}
                 
                 
@@ -54,9 +50,6 @@ export default function App() {
                 <SwiperSlide><img src="https://images.squarespace-cdn.com/content/v1/59e235dcd7bdcec81eb68962/1575923349157-3BNDH7JR5UF7ZU0A5A48/ke17ZwdGBToddI8pDm48kJTNl5E2hijD7J-sESO_BVN7gQa3H78H3Y0txjaiv_0fDoOvxcdMmMKkDsyUqMSsMWxHk725yiiHCCLfrh8O1z5QPOohDIaIeljMHgDF5CVlOqpeNLcJ80NK65_fV7S1Ue3pExvFiO6E9rv2lljq9S2_mVV9EJlaTc_26ArkrjDTJilkUu7eIyBb-AQDEk_nZw/Historical+Fiction+The+Sound+of+the+Hours+by+Karen+Campbell.jpg" alt="" /></SwiperSlide>
                 <SwiperSlide><img src="https://s-i.huffpost.com/gen/1148926/images/o-CLASSIC-BOOKS-ORIGINAL-COVERS-facebook.jpg" alt="" /></SwiperSlide>
                 <SwiperSlide><img src="https://img.apmcdn.org/68769620813bb6a36eb287c5cbd37edf91f83183/uncropped/8e7ed9-20140106-fahrenheit451.jpg" alt="" /></SwiperSlide>
-                <SwiperSlide><img src="https://th.bing.com/th/id/R.ce985b33680a2208ad1257c82622f942?rik=2zNLoCGadlHScQ&riu=http%3a%2f%2ftesseraguild.com%2fwp-content%2fuploads%2f2018%2f06%2fStand.jpeg&ehk=iU7qXvEIXnNWig%2f43Zv6VpCEpTXitlp2DKaDLMORh%2fE%3d&risl=&pid=ImgRaw&r=0" alt="" /></SwiperSlide>
-                <SwiperSlide><img src="https://s4.scoopwhoop.com/anj/kit/0104612c-e9cc-4d1f-bcdd-5730f1efcff6.jpg" alt="" /></SwiperSlide>
-                <SwiperSlide><img src="https://img.apmcdn.org/76930dd3881506385612bf68c36c6c406c7ae278/uncropped/4cc4b6-20150304-catch22.jpg" alt="" /></SwiperSlide>
             </Swiper>
         </div>
     );
