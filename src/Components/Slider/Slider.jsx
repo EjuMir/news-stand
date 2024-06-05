@@ -9,8 +9,18 @@ import './slider.css'
 
 // import required modules
 import { Autoplay, Pagination, Navigation } from 'swiper/modules';
+import useAllNews from '../../Hooks/useAllNews';
+import TrendSlider from './TrendSlider';
+// import { useState } from 'react';
+
 
 export default function App() {
+
+     const [trend] = useAllNews();
+    //  const [highest, setHighest] = useState([])
+      
+     const all = trend.sort((a,b) => a.views > b.views ? -1 : 1).map(data => data);
+    
     return (
         <div>
             <Swiper
@@ -21,7 +31,7 @@ export default function App() {
                 }}
                 navigation={true}
                 slidesPerView={1}
-                spaceBetween={10}
+                spaceBetween={5}
                 // pagination={{
                 //     clickable: true,
                 // }}
@@ -44,12 +54,12 @@ export default function App() {
                 modules={[Pagination, Autoplay, Navigation]}
                 className="mySwiper"
             >
-                <SwiperSlide><img src="https://th.bing.com/th/id/R.f130ff77f75101067d9cc5818e307ca7?rik=Fw6L%2bImNwU%2bSaw&riu=http%3a%2f%2ftesseraguild.com%2fwp-content%2fuploads%2f2018%2f06%2fHobbit.jpg&ehk=0xpERpQ3Zvv7CZHZts86OPPva7nqdaM33H9h%2b932pG0%3d&risl=&pid=ImgRaw&r=0" alt="" /></SwiperSlide>
-                <SwiperSlide><img src="https://images.thenile.io/r1000/9781444910582.jpg" alt="" /></SwiperSlide>
-                <SwiperSlide><img src="https://images.squarespace-cdn.com/content/v1/59e235dcd7bdcec81eb68962/1575923349583-5KH4TDVO8RXU4XBNSI0M/ke17ZwdGBToddI8pDm48kD755XqWqn8HkRX8WSTt5GJ7gQa3H78H3Y0txjaiv_0fDoOvxcdMmMKkDsyUqMSsMWxHk725yiiHCCLfrh8O1z5QPOohDIaIeljMHgDF5CVlOqpeNLcJ80NK65_fV7S1URwn7vetbNoOrjGqAVoZN5bz1XPY0_Ev1nDpBBPOnwUda4oDI66FEaoPF3aKRzQZjg/Historical+Fiction+Where+the+Light+Enters+by+Sara+Donati.jpg" alt="" /></SwiperSlide>
-                <SwiperSlide><img src="https://images.squarespace-cdn.com/content/v1/59e235dcd7bdcec81eb68962/1575923349157-3BNDH7JR5UF7ZU0A5A48/ke17ZwdGBToddI8pDm48kJTNl5E2hijD7J-sESO_BVN7gQa3H78H3Y0txjaiv_0fDoOvxcdMmMKkDsyUqMSsMWxHk725yiiHCCLfrh8O1z5QPOohDIaIeljMHgDF5CVlOqpeNLcJ80NK65_fV7S1Ue3pExvFiO6E9rv2lljq9S2_mVV9EJlaTc_26ArkrjDTJilkUu7eIyBb-AQDEk_nZw/Historical+Fiction+The+Sound+of+the+Hours+by+Karen+Campbell.jpg" alt="" /></SwiperSlide>
-                <SwiperSlide><img src="https://s-i.huffpost.com/gen/1148926/images/o-CLASSIC-BOOKS-ORIGINAL-COVERS-facebook.jpg" alt="" /></SwiperSlide>
-                <SwiperSlide><img src="https://img.apmcdn.org/68769620813bb6a36eb287c5cbd37edf91f83183/uncropped/8e7ed9-20140106-fahrenheit451.jpg" alt="" /></SwiperSlide>
+                {
+                all.slice(0,6).map(trending => <SwiperSlide key={trending._id}>
+                    <TrendSlider key={trending._id} trending={trending}></TrendSlider>
+                </SwiperSlide>)
+            }
+                
             </Swiper>
         </div>
     );
