@@ -12,6 +12,7 @@ import AddArticle from "../Layout/Pages/AddArticle/AddArticle";
 import MyArticle from "../Layout/Pages/MyArticle/MyArticle";
 import PremiumArticles from "../Layout/Pages/PremiumArticles/PremiumArticles";
 import UserProfile from "../Layout/Pages/UserProfile/UserProfile";
+import PrivateRoute from "../PrivateRoute/PrivateRoute";
 
 export const router = createBrowserRouter([
   {
@@ -33,7 +34,7 @@ export const router = createBrowserRouter([
       },
       {
         path: '/allArticle',
-        element: <AllArticles></AllArticles>
+        element: <PrivateRoute><AllArticles></AllArticles></PrivateRoute>
       },
       {
         path: '/subscription',
@@ -54,7 +55,7 @@ export const router = createBrowserRouter([
       {
         path:'/userProfile',
         element:<UserProfile></UserProfile>
-      }
+      },
     ]
   },
 ]);
