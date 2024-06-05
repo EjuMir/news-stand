@@ -2,14 +2,25 @@ import { useState } from "react";
 import { FaUser } from "react-icons/fa";
 import { IoEyeSharp } from "react-icons/io5";
 import { Link } from "react-router-dom";
+import useAxiosPublic from "../../../Hooks/useAxiosPublic";
 
-const ArticleCard = ({data}) => {
+
+const ArticleCard = ({article}) => {
     
-    const {title, image, publisher, description, views, _id} = data;
+    const {title, image, publisher, description, views, _id} = article;
+    const setView = parseInt(views)
     const [read, setRead] = useState(false);
+    const axiosNews = useAxiosPublic(); 
 
     const handleRead = () => {
         setRead(!read);
+    }
+
+    //view count increment
+    const handleView = () => {
+          axiosNews.patch(`/allNews/${_id}`, {
+            views : parseInt(setView + 1)
+          })
     }
 
     return (
@@ -33,10 +44,10 @@ const ArticleCard = ({data}) => {
 
                 <div>
                    <p className="flex font-bold gap-2 border-2 w-fit text-black p-2 rounded-md bg-gray-300 mb-2"><FaUser className="text-xl text-red-600"></FaUser> {publisher}</p>
-                   <p className="flex font-bold gap-2 border-2 w-fit text-black p-2 rounded-md bg-gray-300"><IoEyeSharp className="text-2xl text-red-600"></IoEyeSharp>{views}</p>
+                   <p className="flex font-bold gap-2 border-2 w-fit text-black p-2 rounded-md bg-gray-300"><IoEyeSharp className="text-2xl text-red-600"></IoEyeSharp><span>{setView}</span></p>
                 </div>
                 <div className="card-actions justify-end mt-10">
-                   <Link to={`/details/${_id}`}><button className="btn bg-red-400 text-white font-bold hover:text-red-500">Read Details</button></Link>
+                   <Link to={`/details/${_id}`}><button onClick={handleView} className="btn bg-red-400 text-white font-bold hover:text-red-500">Read Details</button></Link>
                 </div>
             </div>
         </div>
