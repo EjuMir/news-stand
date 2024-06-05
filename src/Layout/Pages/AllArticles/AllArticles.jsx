@@ -1,8 +1,15 @@
+import useAllNews from "../../../Hooks/useAllNews";
+import ArticleCard from "./ArticleCard";
 
 const AllArticles = () => {
+
+    const [allNewsArticle] = useAllNews();
+    
     return (
-        <div>
-            <h2>this is all articles</h2>
+        <div className="grid grid-cols-3 place-items-center gap-10">
+            {
+                allNewsArticle.map(article => <ArticleCard key={article._id} data={article}></ArticleCard>)
+            }
         </div>
     );
 };
