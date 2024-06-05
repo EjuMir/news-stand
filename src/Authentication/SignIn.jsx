@@ -49,7 +49,7 @@ const SignIn = () => {
 
     return (
         <div>
-            <div className="hero min-h-screen my-10 bg-red-500">
+            <div className="hero min-h-screen my-10 bg-red-400">
                 <div className="card shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
                     <div>
                         <h2 className="text-center mt-10 font-bold text-xl">Please Login !</h2>
@@ -93,7 +93,7 @@ const SignIn = () => {
                             }
                         </div>
                         <div className="form-control mt-6">
-                            <button className="btn hover:text-red-500 hover:bg-white hover:border-red-500 bg-red-500 text-white font-bold">Sign In</button>
+                            <button className="btn hover:text-red-500 hover:bg-white hover:border-red-500 bg-red-400 text-white font-bold">Sign In</button>
                         </div>
                         <div>
                             <h1>Dont have an account? <NavLink to='/signUp' className='underline text-blue-600'>Register here</NavLink></h1>

@@ -45,7 +45,7 @@ const Navbar = () => {
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-white font-bold" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h8m-8 6h16" /></svg>
             </div>
             <Tooltip id="article"></Tooltip>
-            <ul tabIndex={0} className="menu menu-sm dropdown-content mt-3 z-[2] p-2 shadow bg-red-500 rounded-box w-20">
+            <ul tabIndex={0} className="menu menu-sm dropdown-content mt-3 z-[2] p-2 shadow bg-red-400 rounded-box w-20">
                 <NavLink to='/addArticle' data-tooltip-content={'Add Article'} data-tooltip-id="addArticle" className={({ isActive }) => isActive ? 'font-bold rounded-lg text-3xl px-4 p-2' : 'text-white font-bold text-[22px] px-4 py-2'} ><Tooltip id="addArticle"></Tooltip><AiFillFileAdd></AiFillFileAdd></NavLink>
                 <NavLink to='/myArticles' data-tooltip-content={'My Articles'} data-tooltip-id="myArticles" className={({ isActive }) => isActive ? 'font-bold rounded-lg text-3xl px-4 p-2' : 'text-white font-bold text-[22px] px-4 py-2'} ><Tooltip id="myArticles"></Tooltip><MdArticle></MdArticle></NavLink>
                 {/* premium articles will be conditional */}
@@ -59,13 +59,13 @@ const Navbar = () => {
     </>
     return (
 
-        <div className="navbar bg-red-500">
+        <div className="navbar bg-red-400">
             <div className="navbar-start">
                 <div className="dropdown">
                     <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
                         <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h8m-8 6h16" /></svg>
                     </div>
-                    <ul tabIndex={0} className="menu menu-sm dropdown-content mt-3 z-[4] p-2 shadow bg-red-500 rounded-box w-20">
+                    <ul tabIndex={0} className="menu menu-sm dropdown-content mt-3 z-[4] p-2 shadow bg-red-400 rounded-box w-20">
                         <NavLink to='/' data-tooltip-content={'Home'} data-tooltip-id="home" className={({ isActive }) => isActive ? 'font-bold text-3xl rounded-lg px-4 p-2' : 'text-white font-bold text-[22px] px-4 py-2'} ><Tooltip id="home"></Tooltip><IoHome></IoHome></NavLink>
                         <NavLink to='/allArticle' data-tooltip-content={'All Article'} data-tooltip-id="allArticle" className={({ isActive }) => isActive ? 'font-bold text-3xl rounded-lg px-4 p-2' : 'text-white font-bold text-[24px] px-4 py-2'} ><Tooltip id="allArticle"></Tooltip><ImBooks></ImBooks></NavLink>
 

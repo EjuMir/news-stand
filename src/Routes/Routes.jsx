@@ -5,7 +5,6 @@ import Main from "../Main/Main";
 import Home from "../Layout/Pages/Home/Home";
 import SignIn from "../Authentication/SignIn";
 import SignUp from "../Authentication/SignUp";
-import ErrorPage from "../ErrorPage/ErrorPage";
 import AllArticles from "../Layout/Pages/AllArticles/AllArticles";
 import Subscription from "../Layout/Pages/Subscription/Subscription";
 import AddArticle from "../Layout/Pages/AddArticle/AddArticle";
@@ -13,6 +12,8 @@ import MyArticle from "../Layout/Pages/MyArticle/MyArticle";
 import PremiumArticles from "../Layout/Pages/PremiumArticles/PremiumArticles";
 import UserProfile from "../Layout/Pages/UserProfile/UserProfile";
 import PrivateRoute from "../PrivateRoute/PrivateRoute";
+import ErrorPage from "../Components/ErrorPage/ErrorPage";
+import Details from "../Layout/Pages/Details/Details";
 
 export const router = createBrowserRouter([
   {
@@ -56,6 +57,10 @@ export const router = createBrowserRouter([
         path:'/userProfile',
         element:<UserProfile></UserProfile>
       },
+      {
+        path: '/details/:id',
+        element :<PrivateRoute><Details></Details></PrivateRoute>
+      }
     ]
   },
 ]);

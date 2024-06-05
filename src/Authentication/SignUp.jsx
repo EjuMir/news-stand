@@ -76,7 +76,7 @@ const SignUp = () => {
     }
     return (
         <div>
-            <div className="animate__animated animate__fadeInLeft hero min-h-screen bg-red-500 my-10">
+            <div className="animate__animated animate__fadeInLeft hero min-h-screen bg-red-400 my-10">
                 <div className="card shrink-0 w-full max-w-sm shadow-2xl bg-base-100 mt-5">
                     <div>
                         <h2 className="text-center mt-5 font-bold text-xl">Please Sign Up Here !</h2>
@@ -119,7 +119,7 @@ const SignUp = () => {
                             }
                         </div>
                         <div className="form-control mt-6">
-                            <button className="btn hover:text-red-500 hover:bg-white hover:border-red-500 bg-red-500 text-white font-bold">Sign Up</button>
+                            <button className="btn hover:text-red-500 hover:bg-white hover:border-red-500 bg-red-400 text-white font-bold">Sign Up</button>
                         </div>
                         <ToastContainer></ToastContainer>
                         <div>

@@ -1,10 +1,11 @@
 import { useState } from "react";
 import { FaUser } from "react-icons/fa";
 import { IoEyeSharp } from "react-icons/io5";
+import { Link } from "react-router-dom";
 
 const ArticleCard = ({data}) => {
     
-    const {title, image, publisher, description, views} = data;
+    const {title, image, publisher, description, views, _id} = data;
     const [read, setRead] = useState(false);
 
     const handleRead = () => {
@@ -12,8 +13,8 @@ const ArticleCard = ({data}) => {
     }
 
     return (
-        <div className="border-2 border-red-500 my-12 p-4 rounded-xl hover:bg-red-500">
-        <div className="card w-96 bg-base-100 shadow-xl image-full h-96">
+        <div className="border-2 border-red-500 my-12 p-4 rounded-xl hover:bg-red-400">
+        <div className="card bg-base-100 shadow-xl image-full">
             <figure><img src={image} alt="article's picture" /></figure>
             <div className="card-body">
                 <h2 className="card-title font-bold">{title}</h2>
@@ -30,12 +31,12 @@ const ArticleCard = ({data}) => {
                     </div>
                 }</div>
 
-                <div className="flex gap-3">
-                   <p className="flex font-bold gap-2"><FaUser className="text-xl text-red-500"></FaUser> {publisher}</p>
-                   <p className="flex font-bold gap-2"><IoEyeSharp className="text-2xl text-red-500"></IoEyeSharp>{views}</p>
+                <div>
+                   <p className="flex font-bold gap-2 border-2 w-fit text-black p-2 rounded-md bg-gray-300 mb-2"><FaUser className="text-xl text-red-600"></FaUser> {publisher}</p>
+                   <p className="flex font-bold gap-2 border-2 w-fit text-black p-2 rounded-md bg-gray-300"><IoEyeSharp className="text-2xl text-red-600"></IoEyeSharp>{views}</p>
                 </div>
                 <div className="card-actions justify-end mt-10">
-                    <button className="btn bg-red-500 text-white font-bold hover:text-red-500">Read Details</button>
+                   <Link to={`/details/${_id}`}><button className="btn bg-red-400 text-white font-bold hover:text-red-500">Read Details</button></Link>
                 </div>
             </div>
         </div>

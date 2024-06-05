@@ -1,7 +1,7 @@
 
 const Footer = () => {
     return (
-        <footer className="footer footer-center p-10 bg-red-500 mt-12 text-white">
+        <footer className="footer footer-center p-10 bg-red-400 mt-12 text-white">
             <aside>
                <img className="h-20 w-20" src="https://images.vexels.com/media/users/3/131563/isolated/preview/93e49b6c5668d156aaee447bd9804fab-newspaper-circle-icon.png" alt="" />
                 <p className="font-bold">
