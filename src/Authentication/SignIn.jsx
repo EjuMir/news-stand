@@ -5,16 +5,14 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { AuthFirebase } from "./Firebase";
-
-
-
+import useAxiosPublic from "../Hooks/useAxiosPublic";
 
 const SignIn = () => {
 
     const [password, showPassword] = useState(false);
-    const { loginUser, googleUser } = useContext(AuthFirebase);
+    const { loginUser, googleUser, user } = useContext(AuthFirebase);
     const navigate = useNavigate();
-
+    const users = useAxiosPublic(); 
 
     const handleLogin = e => {
         e.preventDefault();
@@ -37,11 +35,22 @@ const SignIn = () => {
 
     const handleGoogleLogin = () => {
         googleUser()
-            .then(() => {
-                toast.success('You are logged in successfully');
-                setTimeout(() => {
-                    navigate('/')
-                }, 1000);
+            .then((data) => {
+                console.log(data);
+                const userInfo = {
+                    name: data.user.displayName,
+                    email: data.user.email,
+                    image: data.user.photoURL,
+                    createdAccount: data.user.metadata.creationTime,
+                    lastLogin: data.user.metadata.lastSignInTime 
+                }
+                users.post('/users', userInfo)
+                .then(() => {
+                    toast.success('You are logged in successfully');
+                    setTimeout(() => {
+                        navigate('/')
+                    }, 1000);
+                })
             })
 
 
