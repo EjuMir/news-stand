@@ -14,6 +14,7 @@ import UserProfile from "../Layout/Pages/UserProfile/UserProfile";
 import PrivateRoute from "../PrivateRoute/PrivateRoute";
 import ErrorPage from "../Components/ErrorPage/ErrorPage";
 import Details from "../Layout/Pages/Details/Details";
+import DashBoard from "../Main/DashBoard/DashBoard";
 
 export const router = createBrowserRouter([
   {
@@ -63,4 +64,8 @@ export const router = createBrowserRouter([
       }
     ]
   },
+  {
+    path: "/dashboard",
+    element: <DashBoard></DashBoard>
+  }
 ]);
