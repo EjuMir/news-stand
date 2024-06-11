@@ -15,6 +15,9 @@ import PrivateRoute from "../PrivateRoute/PrivateRoute";
 import ErrorPage from "../Components/ErrorPage/ErrorPage";
 import Details from "../Layout/Pages/Details/Details";
 import DashBoard from "../Main/DashBoard/DashBoard";
+import AllArticlesAdmin from "../Layout/DashboardUtils/AllArticles/AllArticlesAdmin";
+import AllUsers from "../Layout/DashboardUtils/AllUsers/AllUsers";
+import AllPublishers from "../Layout/DashboardUtils/AllPublishers/AllPublishers";
 
 export const router = createBrowserRouter([
   {
@@ -65,7 +68,21 @@ export const router = createBrowserRouter([
     ]
   },
   {
-    path: "/dashboard",
-    element: <DashBoard></DashBoard>
+    path: '/dashboard',
+    element: <DashBoard></DashBoard>,
+    children: [
+      {
+        path : "/dashboard/AllArticles",
+        element: <AllArticlesAdmin></AllArticlesAdmin>
+      },
+      {
+        path : "/dashboard/AllUsers",
+        element: <AllUsers></AllUsers>
+      },
+      {
+        path : "/dashboard/AddPublisher",
+        element: <AllPublishers></AllPublishers>
+      }
+    ]
   }
 ]);
