@@ -36,7 +36,6 @@ const SignIn = () => {
     const handleGoogleLogin = () => {
         googleUser()
             .then((data) => {
-                console.log(data);
                 const userInfo = {
                     name: data.user.displayName,
                     email: data.user.email,

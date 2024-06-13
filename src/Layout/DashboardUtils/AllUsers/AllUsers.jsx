@@ -6,7 +6,7 @@ import Swal from "sweetalert2";
 
 const AllUsers = () => {
     const securedUser = useAxiosSecure()
-    const { data: users = [], refetch } = useQuery({
+    const { data : users = [], refetch } = useQuery({
         queryKey: ['users'],
         queryFn: async () => {
             const res = await securedUser.get('/users');
@@ -34,7 +34,6 @@ const AllUsers = () => {
     return (
         <div>
             <div className="flex justify-evenly my-4">
-                <h2 className="text-3xl">All Users</h2>
                 <h2 className="text-3xl">Total Users: {users.length}</h2>
             </div>
             <div className="overflow-x-auto">
