@@ -10,7 +10,7 @@ import useAxiosPublic from "../Hooks/useAxiosPublic";
 const SignIn = () => {
 
     const [password, showPassword] = useState(false);
-    const { loginUser, googleUser, user } = useContext(AuthFirebase);
+    const { loginUser, googleUser } = useContext(AuthFirebase);
     const navigate = useNavigate();
     const users = useAxiosPublic(); 
 

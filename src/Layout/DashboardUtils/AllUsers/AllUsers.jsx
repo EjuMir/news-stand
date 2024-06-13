@@ -1,4 +1,4 @@
-import { FaTrashAlt, FaUsers } from "react-icons/fa";
+import { FaUsers } from "react-icons/fa";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
 import Swal from "sweetalert2";
@@ -23,7 +23,7 @@ const AllUsers = () => {
                 Swal.fire({
                     position: "top-end",
                     icon: "success",
-                    title: `${user.name} is an Admin Now!`,
+                    title: `You made ${user.name} an Admin`,
                     showConfirmButton: false,
                     timer: 1500
                   });
@@ -53,7 +53,7 @@ const AllUsers = () => {
                         {
                             users.map((user, index) => <tr key={user._id}>
                                 <th>{index + 1}</th>
-                                <td><img className="rounded-xl" src={user.image} alt="" /></td>
+                                <td><img className="rounded-xl h-20 w-20" src={user.image} alt="" /></td>
                                 <td>{user.name}</td>
                                 <td>{user.email}</td>
                                 <td>

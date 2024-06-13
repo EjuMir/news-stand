@@ -6,6 +6,8 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { AuthFirebase } from "./Firebase";
+import useAxiosPublic from "../Hooks/useAxiosPublic";
+import Swal from "sweetalert2";
 
 
 
@@ -14,6 +16,7 @@ const SignUp = () => {
     const [pass, showPass] = useState(false);
     const [error, setError] = useState('');
     const navigate = useNavigate();
+    const newUser = useAxiosPublic()
 
     const handleSubmit = e => {
         e.preventDefault();
@@ -60,10 +63,29 @@ const SignUp = () => {
                     displayName: name,
                     photoURL: photoUrl
                 })
-                toast.success('You are registered successfully')
-                setTimeout(() => {
-                    navigate('/');
-                }, 1600);
+                    .then(() => {
+                        const userInfo = {
+                            name: result.user.displayName,
+                            email: result.user.email,
+                            image: result.user.photoURL,
+                            createdAccount: result.user.metadata.creationTime,
+                            lastLogin: result.user.metadata.lastSignInTime
+                        }
+                        newUser.post('/users', userInfo)
+                            .then(res => {
+                                if (res.data.insertedId) {
+                                    Swal.fire({
+                                        position: 'top-end',
+                                        icon: 'success',
+                                        title: 'Account created successfully.',
+                                        showConfirmButton: false,
+                                        timer: 1500
+                                    });
+                                    navigate('/');
+                                }
+                            })
+
+                    })
                 setTimeout(() => {
                     window.location.reload();
                 }, 1600);
@@ -86,7 +108,7 @@ const SignUp = () => {
                             <label className="label">
                                 <span className="label-text">Name</span>
                             </label>
-                            <input name="name" type="name" placeholder="Your Name" className="input input-bordered" />
+                            <input name="name" type="name" placeholder="Your Name" className="input input-bordered" required/>
                         </div>
                         <div className="form-control">
                             <label className="label">
@@ -98,13 +120,13 @@ const SignUp = () => {
                             <label className="label">
                                 <span className="label-text">Email</span>
                             </label>
-                            <input name="email" type="email" placeholder="Your Email" className="input input-bordered" />
+                            <input name="email" type="email" placeholder="Your Email" className="input input-bordered" required/>
                         </div>
                         <div className="form-control relative">
                             <label className="label">
                                 <span className="label-text">Password</span>
                             </label>
-                            <input name="password" type={pass ? 'text' : 'password'} placeholder="Create Password" className="input input-bordered" />
+                            <input name="password" type={pass ? 'text' : 'password'} placeholder="Create Password" className="input input-bordered" required/>
                             {
                                 pass || <FaEye onClick={() => { showPass(true) }} className="absolute top-2/3 left-full -translate-x-8"></FaEye>
                             }
