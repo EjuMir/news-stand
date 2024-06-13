@@ -9,11 +9,13 @@ import { AiFillFileAdd } from "react-icons/ai";
 import { AuthFirebase } from "../../Authentication/Firebase";
 import { MdArticle, MdSubscriptions, MdWorkspacePremium } from "react-icons/md";
 import { RxDashboard } from "react-icons/rx";
+import useAdminPanel from "../../Hooks/useAdminPanel";
 
 const Navbar = () => {
 
     const { user, logOut } = useContext(AuthFirebase);
     const [mode, setMode] = useState('light');
+    const [ isAdmin ] = useAdminPanel()
 
     const handleChange = e => {
         if (e.target.checked) {
@@ -37,12 +39,15 @@ const Navbar = () => {
         <NavLink to='/allArticle' data-tooltip-content={'All Article'} data-tooltip-id="allArticle" className={({ isActive }) => isActive ? 'font-bold text-3xl rounded-lg px-4 p-2' : 'text-white font-bold text-[24px] px-4 py-2'} ><Tooltip id="allArticle"></Tooltip><ImBooks></ImBooks></NavLink>
 
         <NavLink to='/subscription' data-tooltip-content={'Subscription'} data-tooltip-id="subscription" className={({ isActive }) => isActive ? 'font-bold rounded-lg text-3xl px-4 p-2' : 'text-white font-bold text-[22px] px-4 py-2'} ><Tooltip id="subscription"></Tooltip><MdSubscriptions></MdSubscriptions></NavLink>
-        {/* dashboard will be conditional */}
-        <NavLink to='/dashboard' data-tooltip-content={'Dashboard'} data-tooltip-id="dashboard" className={({ isActive }) => isActive ? 'font-bold rounded-lg text-3xl px-4 p-2' : 'text-white font-bold text-[22px] px-4 py-2'} ><Tooltip id="dashboard"></Tooltip><RxDashboard></RxDashboard></NavLink>
+
+
+        {
+            isAdmin && <NavLink to='/dashboard' data-tooltip-content={'Dashboard'} data-tooltip-id="dashboard" className={({ isActive }) => isActive? 'font-bold rounded-lg text-3xl px-4 p-2' : 'text-white font-bold text-[22px] px-4 py-2'} ><Tooltip id="dashboard"></Tooltip><RxDashboard></RxDashboard></NavLink>
+        }
 
         <div data-tooltip-content={'Article'} data-tooltip-id="article" className="dropdown text-[22px] font-bold">
             <div tabIndex={0} role="button" className="btn btn-ghost">
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-white font-bold" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h8m-8 6h16" /></svg>
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 mb-2 text-white font-bold" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h8m-8 6h16" /></svg>
             </div>
             <Tooltip id="article"></Tooltip>
             <ul tabIndex={0} className="menu menu-sm dropdown-content mt-3 z-[2] p-2 shadow bg-red-400 rounded-box w-20">

@@ -18,6 +18,7 @@ import DashBoard from "../Main/DashBoard/DashBoard";
 import AllArticlesAdmin from "../Layout/DashboardUtils/AllArticles/AllArticlesAdmin";
 import AllUsers from "../Layout/DashboardUtils/AllUsers/AllUsers";
 import AllPublishers from "../Layout/DashboardUtils/AllPublishers/AllPublishers";
+import AdminRoute from "../PrivateRoute/AdminRoute";
 
 export const router = createBrowserRouter([
   {
@@ -73,15 +74,15 @@ export const router = createBrowserRouter([
     children: [
       {
         path : "/dashboard/AllArticles",
-        element: <AllArticlesAdmin></AllArticlesAdmin>
+        element: <AdminRoute><AllArticlesAdmin></AllArticlesAdmin></AdminRoute>
       },
       {
         path : "/dashboard/AllUsers",
-        element: <AllUsers></AllUsers>
+        element: <AdminRoute><AllUsers></AllUsers></AdminRoute>
       },
       {
         path : "/dashboard/AddPublisher",
-        element: <AllPublishers></AllPublishers>
+        element: <AdminRoute><AllPublishers></AllPublishers></AdminRoute>
       }
     ]
   }
