@@ -19,6 +19,7 @@ import AllArticlesAdmin from "../Layout/DashboardUtils/AllArticles/AllArticlesAd
 import AllUsers from "../Layout/DashboardUtils/AllUsers/AllUsers";
 import AllPublishers from "../Layout/DashboardUtils/AllPublishers/AllPublishers";
 import AdminRoute from "../PrivateRoute/AdminRoute";
+import UpdateProfile from "../Layout/Pages/UpdateProfile/UpdateProfile";
 
 export const router = createBrowserRouter([
   {
@@ -64,7 +65,11 @@ export const router = createBrowserRouter([
       },
       {
         path: '/details/:id',
-        element :<PrivateRoute><Details></Details></PrivateRoute>
+        element:<PrivateRoute><Details></Details></PrivateRoute>
+      },
+      {
+        path: '/updateProfile',
+        element:<PrivateRoute><UpdateProfile></UpdateProfile></PrivateRoute>
       }
     ]
   },

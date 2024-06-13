@@ -1,8 +1,10 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { FaStar, FaUser } from "react-icons/fa";
 import { IoEyeSharp } from "react-icons/io5";
 import { Link } from "react-router-dom";
 import useAxiosPublic from "../../../Hooks/useAxiosPublic";
+import useAllUser from "../../../Hooks/useAllUser";
+import { AuthFirebase } from "../../../Authentication/Firebase";
 
 
 const ArticleCard = ({article}) => {
@@ -11,6 +13,11 @@ const ArticleCard = ({article}) => {
     const setView = parseInt(views);
     const [read, setRead] = useState(false);
     const axiosNews = useAxiosPublic(); 
+    const [users] = useAllUser();
+    const {user} = useContext(AuthFirebase);
+
+    const findUser = users.find(e => e.email == user?.email);
+    console.log(findUser);
 
     const handleRead = () => {
         setRead(!read);
@@ -40,7 +47,7 @@ const ArticleCard = ({article}) => {
                         :
                          <div>
                             <p>{description.slice(0,50) }</p>
-                            <a onClick={handleRead} className="text-white font-bold cursor-pointer">Read more ...</a>
+                            <button onClick={handleRead} className="text-white font-bold cursor-pointer">Read more ...</button>
                         </div>
                     }</div>
     
@@ -51,8 +58,9 @@ const ArticleCard = ({article}) => {
                     
                     <div className="card-actions justify-between mt-10">
                     <p className="flex text-lg bg-black text-orange-500 font-bold max-w-fit rounded-lg gap-2 p-2"><FaStar className="text-2xl"></FaStar>Premium</p>
-                       <Link to={`/details/${_id}`}><button onClick={handleView} className="btn bg-red-400 text-white font-bold hover:text-red-500">Read Details</button></Link>
-                       
+                    {
+                        findUser.subscript == "premium" ? <Link to={`/details/${_id}`}><button onClick={handleView} className="btn bg-red-400 text-white font-bold hover:text-red-500">Read Details</button></Link> : <button disabled className="btn bg-red-400 text-white font-bold hover:text-red-500">Read Details</button>
+                    }
                     </div>
                     
                     
