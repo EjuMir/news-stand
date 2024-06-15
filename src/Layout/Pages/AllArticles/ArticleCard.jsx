@@ -17,7 +17,6 @@ const ArticleCard = ({article}) => {
     const {user} = useContext(AuthFirebase);
 
     const findUser = users.find(e => e.email == user?.email);
-    console.log(findUser);
 
     const handleRead = () => {
         setRead(!read);
@@ -59,7 +58,7 @@ const ArticleCard = ({article}) => {
                     <div className="card-actions justify-between mt-10">
                     <p className="flex text-lg bg-black text-orange-500 font-bold max-w-fit rounded-lg gap-2 p-2"><FaStar className="text-2xl"></FaStar>Premium</p>
                     {
-                        findUser.subscript == "premium" ? <Link to={`/details/${_id}`}><button onClick={handleView} className="btn bg-red-400 text-white font-bold hover:text-red-500">Read Details</button></Link> : <button disabled className="btn bg-red-400 text-white font-bold hover:text-red-500">Read Details</button>
+                        findUser?.subscript == "premium" ? <Link to={`/details/${_id}`}><button onClick={handleView} className="btn bg-red-400 text-white font-bold hover:text-red-500">Read Details</button></Link> : <button disabled className="btn bg-red-400 text-white font-bold hover:text-red-500">Read Details</button>
                     }
                     </div>
                     
