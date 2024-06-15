@@ -2,12 +2,19 @@ import { Link } from "react-router-dom";
 import useAxiosPublic from "../../../Hooks/useAxiosPublic";
 import { FaStar, FaUser } from "react-icons/fa";
 import { IoEyeSharp } from "react-icons/io5";
+import useAllUser from "../../../Hooks/useAllUser";
+import { useContext } from "react";
+import { AuthFirebase } from "../../../Authentication/Firebase";
 
 const PremiumArticleCard = ({ elem }) => {
 
     const { title, image, publisher, description, views, _id } = elem;
     const setView = parseInt(views);
+    const [users] = useAllUser();
     const axiosNews = useAxiosPublic();
+    const {user} = useContext(AuthFirebase);
+
+    const findUser = users.find(e => e.email == user?.email);
 
     const handleView = () => {
         axiosNews.patch(`/allNews/${_id}`, {
@@ -30,7 +37,9 @@ const PremiumArticleCard = ({ elem }) => {
                     
                     <div className="card-actions justify-between mt-10">
                     <p className="flex text-lg bg-black text-orange-500 font-bold max-w-fit rounded-lg gap-2 p-2"><FaStar className="text-2xl"></FaStar>Premium</p>
-                    <Link to={`/details/${_id}`}><button onClick={handleView} className="btn bg-red-400 text-white font-bold hover:text-red-500">Read Details</button></Link> 
+                    {
+                        findUser?.subscript == "premium" ? <Link to={`/details/${_id}`}><button onClick={handleView} className="btn bg-red-400 text-white font-bold hover:text-red-500">Read Details</button></Link> : <button disabled className="btn bg-red-400 text-white font-bold hover:text-red-500">Read Details</button>
+                    }
                     </div>
                 </div>
             </div>
