@@ -2,9 +2,7 @@ import { Controller, useForm } from "react-hook-form";
 import Swal from "sweetalert2";
 import useAxiosPublic from "../../../Hooks/useAxiosPublic";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
-import { useState } from 'react';
 import Select from 'react-select';
-import { Input } from "postcss";
 
 //imgbb keys
 const imageHostingKey = import.meta.env.VITE_imgbbApiKey;
@@ -18,15 +16,23 @@ const AddArticle = () => {
     const { control, register, handleSubmit, reset } = useForm();
 
     const tagOption = [
-        { value: 'chocolate', label: 'Chocolate' },
-        { value: 'strawberry', label: 'Strawberry' },
-        { value: 'vanilla', label: 'Vanilla' },
+        { value: 'AI', label: 'AI' },
+        { value: 'healthcare', label: 'healthcare' },
+        { value: 'technology', label: 'technology' },
+        { value: 'peace', label: 'peace' },
+        { value: 'diplomacy', label: 'diplomacy' },
+        { value: 'nature', label: 'nature' },
+        { value: 'ocean', label: 'ocean' },
+        { value: 'science', label: 'science' },
     ];
 
     const publisherOption = [
-        { value: 'chocolate', label: 'Chocolate' },
-        { value: 'strawberry', label: 'Strawberry' },
-        { value: 'vanilla', label: 'Vanilla' },
+        { value: 'Finance Today', label: 'Finance Today' },
+        { value: 'Tech Daily', label: 'Tech Daily' },
+        { value: 'Health News', label: 'Health News' },
+        { value: 'Global News', label: 'Global News' },
+        { value: 'Auto Trends', label: 'Auto Trends' },
+        { value: 'Nature World', label: 'Nature World' },
     ]
 
 
@@ -45,19 +51,20 @@ const AddArticle = () => {
                 publisher: data.publisher,
                 tags: data.tag
             }
-            console.log(articleInfo);
-            // const articlePost = await axiosSecure.post('/articleReq', articleInfo);
-            // console.log(articlePost.data)
-            // if (articlePost.data.insertedId) {
-            //     reset();
-            //     Swal.fire({
-            //         position: "top-end",
-            //         icon: "success",
-            //         title: `Your post ${data.name} is waiting for Approval`,
-            //         showConfirmButton: false,
-            //         timer: 1500
-            //     });
-            // }
+            // console.log(articleInfo);
+            const articlePost = await axiosSecure.post('/articleReq', articleInfo);
+            console.log(articlePost.data)
+            if (articlePost.data.insertedId) {
+                reset();
+                Swal.fire({
+                    position: "top-end",
+                    icon: "info",
+                    title: `Your post ${data.title} is waiting for Approval`,
+                    showConfirmButton: false,
+                    timer: 1500
+                });
+                
+            }
         }
     };
 
@@ -75,6 +82,12 @@ const AddArticle = () => {
                             {...register('title', { required: true })}
                             required
                             className="input input-bordered w-full" />
+                    </div>
+                    <div className="form-control">
+                        <label className="label">
+                            <span className="label-text text-white font-bold text-lg">Title Description</span>
+                        </label>
+                        <textarea {...register('description')} className="textarea textarea-bordered h-24" placeholder="Write About Your Article"></textarea>
                     </div>
                     <div className="flex gap-6">
                         <div className="form-control w-full my-6">
@@ -116,13 +129,6 @@ const AddArticle = () => {
                             />
                         </div>
                     </div>
-                    <div className="form-control">
-                        <label className="label">
-                            <span className="label-text text-white font-bold text-lg">Title Description</span>
-                        </label>
-                        <textarea {...register('description')} className="textarea textarea-bordered h-24" placeholder="Write About Your Article"></textarea>
-                    </div>
-
                     <div className="form-control w-full my-6">
                         <label className="label">
                             <span className="label-text text-white font-bold text-lg">Add An Eye-Catching Image :</span>
