@@ -1,4 +1,4 @@
-import { FaUsers } from "react-icons/fa";
+import { FaUser, FaUsers } from "react-icons/fa";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
 import Swal from "sweetalert2";
@@ -58,9 +58,9 @@ const AllUsers = () => {
                                 <td>
                                     { user.role === 'admin' ? 'Admin' : <button
                                         onClick={() => handleMakeAdmin(user)}
-                                        className="btn btn-lg bg-orange-500">
-                                        <FaUsers className="text-white 
-                                        text-2xl"></FaUsers>
+                                        className="btn btn-md bg-green-500">
+                                        <FaUser className="text-white 
+                                        text-2xl"></FaUser>
                                     </button>}
                                 </td>
                             </tr>)
