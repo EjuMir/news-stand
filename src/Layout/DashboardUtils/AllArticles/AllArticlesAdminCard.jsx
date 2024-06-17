@@ -34,8 +34,12 @@ const AllArticlesAdminCard = ({ pending, refetch }) => {
             publisher: pending.publisher,
             tags: pending.tags,
             description: pending.description,
-            views : 0
+            views : 0,
+            subscription : "normal",
          }
+
+        const articlePost = await axiosSecure.post('/allNews', postInfo)
+        console.log(articlePost);
 
     }
     
@@ -54,12 +58,15 @@ const AllArticlesAdminCard = ({ pending, refetch }) => {
                 <div><h2>{date}</h2></div>
                 <div><h2>Publisher : <span className="italic">{publisher}</span></h2></div>
                 <div className="mb-2"><h2>{status}</h2></div>
-                <div className="card-actions justify-center">
-                    <button onClick={()=>handleApprove(pending, _id)} className="btn bg-green-400 text-cyan-700 font-bold">Approve</button>
-                    <button className="btn bg-gray-300 text-red-600 font-bold">Decline</button>
-                    <button className="btn bg-red-600 text-white font-bold">Delete</button>
-                    <button className="btn bg-black text-orange-500 font-bold">Make Premium</button>
-                </div>
+                {
+                  status == "Pending" && <div className="card-actions justify-center">
+                  <button onClick={()=>handleApprove(pending, _id)} className="btn bg-green-400 text-cyan-700 font-bold">Approve</button>
+                  <button className="btn bg-gray-300 text-red-600 font-bold">Decline</button>
+                  <button className="btn bg-red-600 text-white font-bold">Delete</button>
+                  <button className="btn bg-black text-orange-500 font-bold">Make Premium</button>
+              </div> 
+                }
+                
             </div>
         </div>
     );

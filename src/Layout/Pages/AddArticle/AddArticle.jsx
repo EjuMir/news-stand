@@ -72,6 +72,7 @@ const AddArticle = () => {
                 tags: data.tag,
                 date: currentDate, 
                 status: "Pending",
+                subscription: "normal",
             }
             // console.log(articleInfo);
             const articlePost = await axiosSecure.post('/articleReq', articleInfo);
