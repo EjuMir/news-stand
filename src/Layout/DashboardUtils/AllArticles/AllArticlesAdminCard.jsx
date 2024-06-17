@@ -13,7 +13,7 @@ const AllArticlesAdminCard = ({ pending, refetch }) => {
     const authorImage = findAuthor.map(e => e.image);
     const authorName = findAuthor.map(e => e.name);
 
-
+    //Approve Post
     const handleApprove = async(pending, _id) =>{
          const statusChange = await axiosSecure.patch(`/articleReq/${_id}`);
          console.log(statusChange.data.matchedCount);
@@ -29,6 +29,7 @@ const AllArticlesAdminCard = ({ pending, refetch }) => {
          }
          
          const postInfo = {
+            id: pending._id,
             title: pending.title,
             image: pending.image,
             publisher: pending.publisher,
@@ -41,6 +42,20 @@ const AllArticlesAdminCard = ({ pending, refetch }) => {
         const articlePost = await axiosSecure.post('/allNews', postInfo)
         console.log(articlePost);
 
+    }
+
+    //Delete Post
+    const handleDelete = async(_id) => {
+        const deleteArticleList = await axiosSecure.delete(`/articleReq/${_id}`);
+        if(deleteArticleList.data.deletedCount > 0){
+            refetch();
+            Swal.fire({
+                icon:'success',
+                title:'Article Deleted Successfully',
+                showConfirmButton: false,
+                timer: 1500
+            });
+        }
     }
     
 
@@ -62,7 +77,7 @@ const AllArticlesAdminCard = ({ pending, refetch }) => {
                   status == "Pending" && <div className="card-actions justify-center">
                   <button onClick={()=>handleApprove(pending, _id)} className="btn bg-green-400 text-cyan-700 font-bold">Approve</button>
                   <button className="btn bg-gray-300 text-red-600 font-bold">Decline</button>
-                  <button className="btn bg-red-600 text-white font-bold">Delete</button>
+                  <button onClick={()=>handleDelete(_id)} className="btn bg-red-600 text-white font-bold">Delete</button>
                   <button className="btn bg-black text-orange-500 font-bold">Make Premium</button>
               </div> 
                 }

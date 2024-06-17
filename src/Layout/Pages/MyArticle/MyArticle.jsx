@@ -2,31 +2,33 @@ import { useContext } from "react";
 import { AuthFirebase } from "../../../Authentication/Firebase";
 import useArticleReq from "../../../Hooks/useArticleReq"
 import { Link } from "react-router-dom";
-import useAxiosPublic from "../../../Hooks/useAxiosPublic";
 import Swal from "sweetalert2";
+import useAxiosSecure from "../../../Hooks/useAxiosSecure";
+
 const MyArticle = () => {
     const {user} = useContext(AuthFirebase);
     const [article, refetch] = useArticleReq();
-    const axiosPublic = useAxiosPublic();
-    
+    const axiosSecure = useAxiosSecure();
+
 
     const filter = article.filter(element => element.email === user?.email);
 
     const handleDelete = async(id) => {
-        
-         const deleteFromAll = await axiosPublic.delete(`/allNews/${id}`);
-         console.log(deleteFromAll);
-          
-        //  const deleteArticleList = await axiosPublic.delete(`/articleReq/${id}`);
-        //  if(deleteArticleList.data.deletedCount > 0){
-        //     refetch();
-        //     Swal.fire({
-        //         icon:'success',
-        //         title:'Article Deleted Successfully',
-        //         showConfirmButton:false,
-        //         timer:1500
-        //     })
-        //  }
+
+       const deleteOne = await axiosSecure.delete(`/allNews/${id}`);
+          console.log(deleteOne);
+
+         const deleteArticleList = await axiosSecure.delete(`/articleReq/${id}`);
+         console.log(deleteArticleList);
+         if(deleteArticleList.data.deletedCount > 0){
+            refetch();
+            Swal.fire({
+                icon:'success',
+                title:'Article Deleted Successfully',
+                showConfirmButton:false,
+                timer:1500
+            })
+         }
     }
 
     return (

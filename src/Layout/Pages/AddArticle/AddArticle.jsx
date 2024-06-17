@@ -54,14 +54,14 @@ const AddArticle = () => {
 
     const onSubmit = async (data) => {
 
-
         const imageFile = { image: data.image[0] }
         const res = await axiosPublic.post(imageHostingUrl, imageFile, {
             headers: {
                 'content-type': 'multipart/form-data'
             }
+
         });
-        console.log(data);
+        
         if (res.data.success) {
             const articleInfo = {
                 email: user.email,
@@ -76,7 +76,7 @@ const AddArticle = () => {
             }
             // console.log(articleInfo);
             const articlePost = await axiosSecure.post('/articleReq', articleInfo);
-            console.log(articlePost)
+            
             if (articlePost.data.insertedId) {
                 reset();
                 Swal.fire({
