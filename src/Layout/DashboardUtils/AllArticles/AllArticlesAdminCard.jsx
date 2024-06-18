@@ -95,6 +95,29 @@ const AllArticlesAdminCard = ({ pending, refetch }) => {
         console.log(decline);
     }
 
+    //make premium post
+    const handleMakePremium = async(id) => {
+          const subscript = await axiosSecure.patch(`/articleReq/${id}`, {
+              subscription : "premium",
+              status: 'Approved',
+          })
+
+         const makePremium =  await axiosSecure.patch(`/allNews/${id}`, {
+            subscription : "premium",
+            status: 'Approved',
+          })
+        console.log(makePremium);
+          if(makePremium.data.updateSubscription.matchedCount > 0) {
+            refetch();
+            Swal.fire({
+                icon: 'success',
+                title: 'Article Is Added As Premium',
+                showConfirmButton: false,
+                timer: 1500
+            });
+          } 
+    }
+
     return (
         <div className="card w-80 bg-base-100 shadow-xl">
             <div className="card-body">
@@ -136,7 +159,7 @@ const AllArticlesAdminCard = ({ pending, refetch }) => {
                     </div> :
                         <div>
                             <button onClick={() => handleDelete(_id)} className="btn bg-red-600 text-white font-bold mr-2">Delete</button>
-                            <button className="btn bg-black text-orange-500 font-bold">Make Premium</button>
+                            <button onClick={() => handleMakePremium(_id)} className="btn bg-black text-orange-500 font-bold">Make Premium</button>
                         </div>
                 }
 
