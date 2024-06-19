@@ -63,7 +63,6 @@ const AddArticle = () => {
     allOption[i] = { value: allPublisher[i].name, label: allPublisher[i].name }
     allOption.push(allOption[i])
  }
- console.log(allOption[0]);
 
     const onSubmit = async (data) => {
         
@@ -73,6 +72,7 @@ const AddArticle = () => {
         // }
 
         const imageFile = { image: data.image[0] }
+        console.log(imageFile);
         const res = await axiosPublic.post(imageHostingUrl, imageFile, {
             headers: {
                 'content-type': 'multipart/form-data'
@@ -92,9 +92,9 @@ const AddArticle = () => {
                 status: "Pending",
                 subscription: "normal",
             }
-            // console.log(articleInfo);
+           
             const articlePost = await axiosSecure.post('/articleReq', articleInfo);
-            console.log(articlePost);
+            
             if (articlePost.data.insertedId) {
                 reset();
                 Swal.fire({

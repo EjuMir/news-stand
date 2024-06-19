@@ -1,39 +1,46 @@
-import useAxiosSecured from "../../../Hooks/useAxiosSecure";
+import Swal from "sweetalert2";
+import useAxiosPublic from "../../../Hooks/useAxiosPublic";
 
-const imageHostingKeyPublisher = import.meta.env.VITE_imgbbApiKey;
+const imageHostingKeyPublisher = import.meta.env.VITE_imgbbApiKeyForPublisher;
 const imageHostingPath = `https://api.imgbb.com/1/upload?key=${imageHostingKeyPublisher}`
 
 const AllPublishers = () => {
 
-    const axiosSecured = useAxiosSecured();
+    const axiosSecured = useAxiosPublic();
 
-    const handlePublisher = async(e) => {
-        e.preventDefault();
-        const form = new FormData(e.currentTarget);
+    const handlePublisher = async (data) => {
+        data.preventDefault();
+        const form = new FormData(data.currentTarget);
         const name = form.get('name');
         const photoUrl = form.get('image');
         console.log(name, photoUrl);
 
-        const imageFile = { image: data.image[0] }
+        const imageFile = { image: photoUrl}
+    
         const res = await axiosSecured.post(imageHostingPath, imageFile, {
-        headers: {
-            'content-type': 'multipart/form-data'
-        }
+            headers: {
+                'content-type': 'multipart/form-data'
+            }
         });
 
-        if(res.data.success){
+        if (res.data.success) {
             const publisherInfo = {
-                name,
-                photoUrl: res.data.data.display_url
+                name: name,
+                logo_url: res.data.data.display_url
             }
-            axiosSecured.post('/publisher', publisherInfo)
-               .then(res => {
-                    console.log(res.data);
-                })
-               .catch(err => {
-                    console.log(err);
-                })
-            e.currentTarget.reset();
+            const articlePost = await axiosSecured.post('/publisher', publisherInfo);
+            if (articlePost.data.insertedId) {
+                Swal.fire({
+                    position: "center",
+                    icon: "success",
+                    title: `${name} is made a Publisher by You`,
+                    showConfirmButton: false,
+                    timer: 1500
+                });
+                setTimeout(()=>{
+                    window.location.reload();
+                  },1000)
+            }
         }
 
     }
@@ -52,7 +59,7 @@ const AllPublishers = () => {
                     </div>
                     <div>
                         <label>
-                            <h2 className="text-white font-bold mb-2">Publisher Image:</h2>
+                            <h2 className="text-white font-bold mb-2">Publisher Logo:</h2>
                         </label>
                         <input type="file" name="image" className="file-input file-input-bordered border-red-600 border-2 file-input-secondary w-full max-w-xs" />
                     </div>

@@ -9,7 +9,7 @@ const DashHome = () => {
 
     const publisher = publishers.map(publisher => publisher.name)
 
-    const pieChart = [["Task", "Hours per Day"]];
+    const pieChart = [["Post", "Total Articles"]];
     for (let i = 0; i < publisher.length; i++) {
         pieChart.push([publisher[i], (allArticles.filter(article => article.publisher == publisher[i]).length)])
     }
