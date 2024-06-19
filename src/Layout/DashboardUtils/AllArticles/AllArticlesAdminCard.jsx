@@ -2,7 +2,9 @@ import useAllUser from "../../../Hooks/useAllUser";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 import Swal from "sweetalert2";
 import Modal from 'react-modal';
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { AuthFirebase } from "../../../Authentication/Firebase";
+import useAllNews from "../../../Hooks/useAllNews";
 
 const customStyles = {
     content: {
@@ -51,6 +53,7 @@ const AllArticlesAdminCard = ({ pending, refetch }) => {
             description: pending.description,
             views: 0,
             subscription: "normal",
+            email: pending.email,
         }
 
         const articlePost = await axiosSecure.post('/allNews', postInfo)
@@ -85,13 +88,24 @@ const AllArticlesAdminCard = ({ pending, refetch }) => {
         setIsOpen(false);
     }
 
-    const handleDecline = (e) => { 
+    const handleDecline = async(e) => { 
         e.preventDefault();
         const form = e.target.reason.value;
-        const decline = axiosSecure.patch(`/articleReq/${_id}`, {
+        const decline = await axiosSecure.patch(`/articleReq/${_id}`, {
             declineReason : form,
             status : "Declined"
         })
+        if(decline.data.modifiedCount > 0) {
+            refetch();
+            Swal.fire({
+                position: "top-end",
+                icon: "success",
+                title: "Your Declination Reason Has Been Submitted Successfully",
+                showConfirmButton: false,
+                timer: 1500,
+            });
+           closeModal();
+        }
         console.log(decline);
     }
 
@@ -138,6 +152,7 @@ const AllArticlesAdminCard = ({ pending, refetch }) => {
                         <div>
                             <button className="btn bg-gray-300 text-red-600 font-bold" onClick={openModal}>Decline</button>
                             <Modal
+                                ariaHideApp={false}
                                 isOpen={modalIsOpen}
                                 onRequestClose={closeModal}
                                 style={customStyles}
@@ -155,7 +170,6 @@ const AllArticlesAdminCard = ({ pending, refetch }) => {
                             </Modal>
                         </div>
                         <button onClick={() => handleDelete(_id)} className="btn bg-red-600 text-white font-bold">Delete</button>
-                        <button className="btn bg-black text-orange-500 font-bold">Make Premium</button>
                     </div> :
                         <div>
                             <button onClick={() => handleDelete(_id)} className="btn bg-red-600 text-white font-bold mr-2">Delete</button>

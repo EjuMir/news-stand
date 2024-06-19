@@ -20,6 +20,7 @@ import AllUsers from "../Layout/DashboardUtils/AllUsers/AllUsers";
 import AllPublishers from "../Layout/DashboardUtils/AllPublishers/AllPublishers";
 import AdminRoute from "../PrivateRoute/AdminRoute";
 import UpdateProfile from "../Layout/Pages/UpdateProfile/UpdateProfile";
+import DashHome from "../Layout/DashboardUtils/DashHome/DashHome";
 
 export const router = createBrowserRouter([
   {
@@ -41,31 +42,31 @@ export const router = createBrowserRouter([
       },
       {
         path: '/allArticle',
-        element: <PrivateRoute><AllArticles></AllArticles></PrivateRoute>
+        element:<AllArticles></AllArticles>
       },
       {
         path: '/subscription',
-        element: <Subscription></Subscription>
+        element: <PrivateRoute><Subscription></Subscription></PrivateRoute>
       },
       {
         path:'/addArticle',
-        element: <AddArticle></AddArticle>
+        element: <PrivateRoute><AddArticle></AddArticle></PrivateRoute>
       },
       {
         path:'/myArticles',
-        element: <MyArticle></MyArticle>
+        element: <PrivateRoute><MyArticle></MyArticle></PrivateRoute>
       },
       {
         path:'/premiumArticles',
-        element: <PremiumArticles></PremiumArticles>
+        element: <PrivateRoute><PremiumArticles></PremiumArticles></PrivateRoute>
       },
       {
         path:'/userProfile',
-        element:<UserProfile></UserProfile>
+        element: <PrivateRoute><UserProfile></UserProfile></PrivateRoute>
       },
       {
         path: '/details/:id',
-        element:<PrivateRoute><Details></Details></PrivateRoute>
+        element: <PrivateRoute><Details></Details></PrivateRoute>
       },
       {
         path: '/updateProfile',
@@ -77,6 +78,10 @@ export const router = createBrowserRouter([
     path: '/dashboard',
     element: <DashBoard></DashBoard>,
     children: [
+      {
+        path : "/dashboard",
+        element: <AdminRoute><DashHome></DashHome></AdminRoute>
+      },
       {
         path : "/dashboard/AllArticles",
         element: <AdminRoute><AllArticlesAdmin></AllArticlesAdmin></AdminRoute>

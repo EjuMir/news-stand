@@ -5,6 +5,9 @@ import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 import Select from 'react-select';
 import { useContext, useState } from "react";
 import { AuthFirebase } from "../../../Authentication/Firebase";
+import useAllNews from "../../../Hooks/useAllNews";
+import { useNavigate } from "react-router-dom";
+import useAllPublishers from "../../../Hooks/useAllPublishers";
 
 //imgbb keys
 const imageHostingKey = import.meta.env.VITE_imgbbApiKey;
@@ -19,11 +22,15 @@ const getDate = () => {
 }
 
 const AddArticle = () => {
-
+    const navigate = useNavigate();
     const [currentDate, setCurrentDate] = useState(getDate());
+
+    const [allNews] = useAllNews();
+    const [allPublisher] = useAllPublishers();
 
     const axiosPublic = useAxiosPublic();
     const axiosSecure = useAxiosSecure();
+
     const { user } = useContext(AuthFirebase);
     const { control, register, handleSubmit, reset } = useForm();
 
@@ -42,17 +49,28 @@ const AddArticle = () => {
         { value: 'science', label: 'science' },
     ];
 
-    const publisherOption = [
-        { value: 'Finance Today', label: 'Finance Today' },
-        { value: 'Tech Daily', label: 'Tech Daily' },
-        { value: 'Health News', label: 'Health News' },
-        { value: 'Global News', label: 'Global News' },
-        { value: 'Auto Trends', label: 'Auto Trends' },
-        { value: 'Nature World', label: 'Nature World' },
-    ]
-
+    // const publisherOption = [
+    //     { value: 'Finance Today', label: 'Finance Today' },
+    //     { value: 'Tech Daily', label: 'Tech Daily' },
+    //     { value: 'Health News', label: 'Health News' },
+    //     { value: 'Global News', label: 'Global News' },
+    //     { value: 'Auto Trends', label: 'Auto Trends' },
+    //     { value: 'Nature World', label: 'Nature World' },
+    // ]
+    
+ let allOption = [];
+ for(let i = 0; i < allPublisher.length; i++) {
+    allOption[i] = { value: allPublisher[i].name, label: allPublisher[i].name }
+    allOption.push(allOption[i])
+ }
+ console.log(allOption[0]);
 
     const onSubmit = async (data) => {
+        
+        const existingUser = allNews.find(news => news.email == user?.email);
+        if (existingUser && existingUser.subscription == "normal") {
+             return navigate('/subscription')
+        }
 
         const imageFile = { image: data.image[0] }
         const res = await axiosPublic.post(imageHostingUrl, imageFile, {
@@ -151,14 +169,13 @@ const AddArticle = () => {
                             </label>
                             <Controller
                                 control={control}
-                                defaultValue={publisherOption.map(c => c.value[0])}
+                                defaultValue={allPublisher.map(c => c.name[0])}
                                 name="publisher"
                                 render={({ field: { onChange, value, ref } }) => (
                                     <Select
                                         inputRef={ref}
-                                        value={publisherOption.filter(c => value.includes(c.value))}
+                                        value={allPublisher.filter(c => value.includes(c.name))}
                                         onChange={val => onChange(val.value)}
-                                        options={publisherOption}
                                         required
                                     />
                                 )}
@@ -180,6 +197,9 @@ const AddArticle = () => {
                     </label>
                       <h1 className="font-bold " {...register('email', {value : {user}})}>{user.email}</h1>
                     </div>
+                    {
+
+                    }
                     <button className="btn w-full"> Publish </button>
                 </form>
             </div>

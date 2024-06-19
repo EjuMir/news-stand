@@ -37,15 +37,12 @@ const Navbar = () => {
     const navLink = <>
         <NavLink to='/' data-tooltip-content={'Home'} data-tooltip-id="home" className={({ isActive }) => isActive ? 'font-bold text-3xl rounded-lg px-4 p-2' : 'text-white font-bold text-[22px] px-4 py-2'} ><Tooltip id="home"></Tooltip><IoHome></IoHome></NavLink>
         <NavLink to='/allArticle' data-tooltip-content={'All Article'} data-tooltip-id="allArticle" className={({ isActive }) => isActive ? 'font-bold text-3xl rounded-lg px-4 p-2' : 'text-white font-bold text-[24px] px-4 py-2'} ><Tooltip id="allArticle"></Tooltip><ImBooks></ImBooks></NavLink>
-
-        <NavLink to='/subscription' data-tooltip-content={'Subscription'} data-tooltip-id="subscription" className={({ isActive }) => isActive ? 'font-bold rounded-lg text-3xl px-4 p-2' : 'text-white font-bold text-[22px] px-4 py-2'} ><Tooltip id="subscription"></Tooltip><MdSubscriptions></MdSubscriptions></NavLink>
-
-
+{ user && <NavLink to='/subscription' data-tooltip-content={'Subscription'} data-tooltip-id="subscription" className={({ isActive }) => isActive ? 'font-bold rounded-lg text-3xl px-4 p-2' : 'text-white font-bold text-[22px] px-4 py-2'} ><Tooltip id="subscription"></Tooltip><MdSubscriptions></MdSubscriptions></NavLink>}
+      
         {
             isAdmin && <NavLink to='/dashboard' data-tooltip-content={'Dashboard'} data-tooltip-id="dashboard" className={({ isActive }) => isActive? 'font-bold rounded-lg text-3xl px-4 p-2' : 'text-white font-bold text-[22px] px-4 py-2'} ><Tooltip id="dashboard"></Tooltip><RxDashboard></RxDashboard></NavLink>
         }
-
-        <div data-tooltip-content={'Article'} data-tooltip-id="article" className="dropdown text-[22px] font-bold">
+{ user && <div data-tooltip-content={'Article'} data-tooltip-id="article" className="dropdown text-[22px] font-bold">
             <div tabIndex={0} role="button" className="btn btn-ghost">
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 mb-2 text-white font-bold" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h8m-8 6h16" /></svg>
             </div>
@@ -57,10 +54,11 @@ const Navbar = () => {
                 <NavLink to='/premiumArticles' data-tooltip-content={'Premium Articles'} data-tooltip-id="premiumArticles" className={({ isActive }) => isActive ? 'font-bold rounded-lg text-3xl px-4 p-2' : 'text-white font-bold text-[22px] px-4 py-2'} ><Tooltip id="premiumArticles"></Tooltip><MdWorkspacePremium></MdWorkspacePremium></NavLink>
             </ul>
         </div>
-
+ }
         <div className="lg:text-center lg:my-auto">
             <input onChange={handleChange} type="checkbox" className="toggle theme-controller bg-red-400 border-white [--tglbg:theme(colors.white)] checked:bg-red-300 checked:border-blue-800 checked:[--tglbg:theme(colors.black)] row-start-1 col-start-1 col-span-2" />
         </div>
+
     </>
     return (
 
@@ -70,7 +68,7 @@ const Navbar = () => {
                     <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
                         <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h8m-8 6h16" /></svg>
                     </div>
-                    <ul tabIndex={0} className="menu menu-sm dropdown-content mt-3 z-[4] p-2 shadow bg-red-400 rounded-box w-20">
+                    <ul tabIndex={0} className="menu menu-sm dropdown-content mt-3 z-30 p-2 shadow bg-red-400 rounded-box w-20">
                         <NavLink to='/' data-tooltip-content={'Home'} data-tooltip-id="home" className={({ isActive }) => isActive ? 'font-bold text-3xl rounded-lg px-4 p-2' : 'text-white font-bold text-[22px] px-4 py-2'} ><Tooltip id="home"></Tooltip><IoHome></IoHome></NavLink>
                         <NavLink to='/allArticle' data-tooltip-content={'All Article'} data-tooltip-id="allArticle" className={({ isActive }) => isActive ? 'font-bold text-3xl rounded-lg px-4 p-2' : 'text-white font-bold text-[24px] px-4 py-2'} ><Tooltip id="allArticle"></Tooltip><ImBooks></ImBooks></NavLink>
 
