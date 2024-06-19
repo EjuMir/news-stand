@@ -67,10 +67,10 @@ const AddArticle = () => {
 
     const onSubmit = async (data) => {
         
-        const existingUser = allNews.find(news => news.email == user?.email);
-        if (existingUser && existingUser.subscription == "normal") {
-             return navigate('/subscription')
-        }
+        // const existingUser = allNews.find(news => news.email == user?.email);
+        // if (existingUser.subscription == "normal") {
+        //      return navigate('/subscription') 
+        // }
 
         const imageFile = { image: data.image[0] }
         const res = await axiosPublic.post(imageHostingUrl, imageFile, {
@@ -94,7 +94,7 @@ const AddArticle = () => {
             }
             // console.log(articleInfo);
             const articlePost = await axiosSecure.post('/articleReq', articleInfo);
-            
+            console.log(articlePost);
             if (articlePost.data.insertedId) {
                 reset();
                 Swal.fire({
@@ -174,8 +174,9 @@ const AddArticle = () => {
                                 render={({ field: { onChange, value, ref } }) => (
                                     <Select
                                         inputRef={ref}
-                                        value={allPublisher.filter(c => value.includes(c.name))}
+                                        value={allOption.filter(c => value.includes(c.value))}
                                         onChange={val => onChange(val.value)}
+                                        options={allOption}
                                         required
                                     />
                                 )}

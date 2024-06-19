@@ -32,7 +32,7 @@ const ArticleCard = ({article}) => {
     return (
         <div>
         { 
-            subscription == "premium" ? <div className="border-2 border-red-500 my-12 p-4 bg-black rounded-xl hover:bg-red-400">
+            subscription == "premium" ? <div className="border-2 border-red-500 my-3 p-4 bg-black rounded-xl hover:bg-red-400">
             <div className="card bg-base-100 shadow-xl image-full">
                 <figure><img src={image} alt="article's picture" /></figure>
                 <div className="card-body">
@@ -69,7 +69,7 @@ const ArticleCard = ({article}) => {
              
             :
             
-            <div className="border-2 border-red-500 my-12 p-4 rounded-xl hover:bg-red-400">
+            <div className="border-2 border-red-500 my-3 p-4 rounded-xl hover:bg-red-400">
             <div className="card bg-base-100 shadow-xl image-full">
                 <figure><img src={image} alt="article's picture" /></figure>
                 <div className="card-body">
