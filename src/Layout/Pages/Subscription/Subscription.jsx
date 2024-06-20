@@ -3,8 +3,9 @@ import { loadStripe } from "@stripe/stripe-js";
 import CheckoutForm from "./CheckoutForm";
 import { Controller, useForm } from "react-hook-form";
 import Select from 'react-select';
-import { useState } from "react";
+import { createContext, useState } from "react";
 
+export const PriceOfSub = createContext(1);
 
 const stripeTest = loadStripe(import.meta.env.VITE_apiKeyPKtest)
 
@@ -12,6 +13,7 @@ const Subscription = () => {
     const { control, handleSubmit, reset } = useForm();
     const [open, setOpen] = useState(false);
     const [check, setCheck] = useState(false);
+    const [priceFix, setPriceFix] = useState(0);
 
     const handleSub = () => {
         setOpen(true)
@@ -28,12 +30,10 @@ const Subscription = () => {
 
 
     const onSubmit = (data) => {
-        console.log(data);
-        <Elements stripe={stripeTest} data={data}>
-           <CheckoutForm />
-       </Elements>
-       setCheck(true)
-       
+        console.log(data.pricing);
+        setPriceFix(data.pricing)
+        setCheck(true)
+
     }
 
     const handleBackToPrev = () => {
@@ -42,11 +42,13 @@ const Subscription = () => {
 
     return (
         <div>{
-              
-                   check ? <div><Elements stripe={stripeTest}>
-                   <CheckoutForm />
-               </Elements>
-               <div><button onClick={handleBackToPrev} className="btn btn-primary">Back</button></div></div>: <div>{
+
+            check ? <div><Elements stripe={stripeTest}>
+                <PriceOfSub.Provider value={priceFix}>
+                    <CheckoutForm />
+                </PriceOfSub.Provider>
+            </Elements>
+                <div className="text-center"><button onClick={handleBackToPrev} className="btn btn-error text-center mx-auto">Back</button></div></div> : <div>{
                     open ? <div className="border-2 w-1/3 bg-black rounded-md h-60 mx-auto my-14 p-8">
                         <div className="form-control w-full my-2">
                             <form onSubmit={handleSubmit(onSubmit)}>
@@ -79,7 +81,7 @@ const Subscription = () => {
                                 </div>
                             </form>
                         </div>
-    
+
                     </div>
                         :
                         <div onClick={handleSub}>
@@ -105,8 +107,8 @@ const Subscription = () => {
                 }</div>
 
 
-            }
-            
+        }
+
 
         </div>
     );

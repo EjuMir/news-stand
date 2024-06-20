@@ -6,7 +6,6 @@ import Home from "../Layout/Pages/Home/Home";
 import SignIn from "../Authentication/SignIn";
 import SignUp from "../Authentication/SignUp";
 import AllArticles from "../Layout/Pages/AllArticles/AllArticles";
-import Subscription from "../Layout/Pages/Subscription/Subscription";
 import AddArticle from "../Layout/Pages/AddArticle/AddArticle";
 import MyArticle from "../Layout/Pages/MyArticle/MyArticle";
 import PremiumArticles from "../Layout/Pages/PremiumArticles/PremiumArticles";
@@ -21,6 +20,8 @@ import AllPublishers from "../Layout/DashboardUtils/AllPublishers/AllPublishers"
 import AdminRoute from "../PrivateRoute/AdminRoute";
 import UpdateProfile from "../Layout/Pages/UpdateProfile/UpdateProfile";
 import DashHome from "../Layout/DashboardUtils/DashHome/DashHome";
+import CheckoutForm from "../Layout/Pages/Subscription/CheckoutForm";
+import Subscription from "../Layout/Pages/Subscription/Subscription";
 
 export const router = createBrowserRouter([
   {
