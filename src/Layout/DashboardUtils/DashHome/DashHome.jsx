@@ -9,7 +9,7 @@ const DashHome = () => {
 
     const publisher = publishers.map(publisher => publisher.name)
 
-    const pieChart = [["Post", "Total Articles"]];
+    const pieChart = [["Post", "Articles Posted"]];
     for (let i = 0; i < publisher.length; i++) {
         pieChart.push([publisher[i], (allArticles.filter(article => article.publisher == publisher[i]).length)])
     }
@@ -40,7 +40,7 @@ const DashHome = () => {
 
     return (
         <div>
-            <div>
+            <div className="my-7">
                 {
                     <Chart
                         chartType="PieChart"
@@ -54,7 +54,7 @@ const DashHome = () => {
                     </Chart>
                 }
             </div>
-            <div>
+            <div className="my-7">
                 <Chart
                     chartType="BarChart"
                     width="100%"
@@ -65,7 +65,7 @@ const DashHome = () => {
                 />
             </div>
 
-            <div>
+            <div className="my-7">
                 <Chart
                     chartType="AreaChart"
                     width="100%"

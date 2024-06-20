@@ -177,7 +177,6 @@ const AddArticle = () => {
                                         value={allOption.filter(c => value.includes(c.value))}
                                         onChange={val => onChange(val.value)}
                                         options={allOption}
-                                        required
                                     />
                                 )}
                             />
