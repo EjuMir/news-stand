@@ -10,7 +10,7 @@ export const PriceOfSub = createContext(1);
 const stripeTest = loadStripe(import.meta.env.VITE_apiKeyPKtest)
 
 const Subscription = () => {
-    const { control, handleSubmit, reset } = useForm();
+    const { control, handleSubmit } = useForm();
     const [open, setOpen] = useState(false);
     const [check, setCheck] = useState(false);
     const [priceFix, setPriceFix] = useState(0);

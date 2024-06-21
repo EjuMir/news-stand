@@ -2,9 +2,8 @@ import useAllUser from "../../../Hooks/useAllUser";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 import Swal from "sweetalert2";
 import Modal from 'react-modal';
-import { useContext, useState } from "react";
-import { AuthFirebase } from "../../../Authentication/Firebase";
-import useAllNews from "../../../Hooks/useAllNews";
+import { useState } from "react";
+
 
 const customStyles = {
     content: {

@@ -1,4 +1,4 @@
-import { FaUser, FaUsers } from "react-icons/fa";
+import { FaUser } from "react-icons/fa";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
 import Swal from "sweetalert2";

@@ -4,7 +4,6 @@ import { Tooltip } from "react-tooltip";
 const Sidebar = () => {
     return (
         <div className="flex">
-        {/* dashboard side bar */}
         <div className="w-64 min-h-screen bg-gray-200">
             <ul className="menu p-4 gap-6">
                         <li>
@@ -19,7 +18,6 @@ const Sidebar = () => {
 
             </ul>
         </div>
-        {/* dashboard content */}
         <div className="flex-1 p-8">
             <Outlet></Outlet>
         </div>
