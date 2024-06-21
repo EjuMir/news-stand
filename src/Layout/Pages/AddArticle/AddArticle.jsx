@@ -22,10 +22,8 @@ const getDate = () => {
 }
 
 const AddArticle = () => {
-    const navigate = useNavigate();
+ 
     const [currentDate, setCurrentDate] = useState(getDate());
-
-    const [allNews] = useAllNews();
     const [allPublisher] = useAllPublishers();
 
     const axiosPublic = useAxiosPublic();

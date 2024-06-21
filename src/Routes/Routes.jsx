@@ -20,7 +20,6 @@ import AllPublishers from "../Layout/DashboardUtils/AllPublishers/AllPublishers"
 import AdminRoute from "../PrivateRoute/AdminRoute";
 import UpdateProfile from "../Layout/Pages/UpdateProfile/UpdateProfile";
 import DashHome from "../Layout/DashboardUtils/DashHome/DashHome";
-import CheckoutForm from "../Layout/Pages/Subscription/CheckoutForm";
 import Subscription from "../Layout/Pages/Subscription/Subscription";
 
 export const router = createBrowserRouter([

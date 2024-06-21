@@ -6,7 +6,6 @@ import useAxiosPublic from "../../../Hooks/useAxiosPublic";
 import useAllUser from "../../../Hooks/useAllUser";
 import { AuthFirebase } from "../../../Authentication/Firebase";
 
-
 const ArticleCard = ({article}) => {
     
     const {title, image, publisher, description, views, _id, subscription} = article;
@@ -15,7 +14,7 @@ const ArticleCard = ({article}) => {
     const axiosNews = useAxiosPublic(); 
     const [users] = useAllUser();
     const {user} = useContext(AuthFirebase);
-
+   
     const findUser = users.find(e => e.email == user?.email);
 
     const handleRead = () => {
