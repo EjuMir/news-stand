@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { AuthFirebase } from "../../../Authentication/Firebase";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure"
 import { PriceOfSub } from "./Subscription";
+import moment from "moment";
 
 
 const CheckoutForm = () => {
@@ -18,15 +19,27 @@ const CheckoutForm = () => {
     const navigate = useNavigate();
     const price = useContext(PriceOfSub);
 
-    console.log(price);
+    let expired = 0 ;
+
+    if(price == 1){
+         expired = new Date().getTime()+60000
+    }
+    else if (price == 10) {
+        expired = new Date().getTime()+432000000;
+    }
+    else if (price == 15) {
+        expired = new Date().getTime()+864000000;
+    }
+
+    console.log(expired);
 
     useEffect(() => {
-        if(price>0){
-        axiosSecure.post('/create-payment-intent', { price: price})
-            .then(res => {
-                console.log(res.data.clientSecret);
-                setClientSecret(res.data.clientSecret);
-            })
+        if (price > 0) {
+            axiosSecure.post('/create-payment-intent', { price: price })
+                .then(res => {
+                    console.log(res.data.clientSecret);
+                    setClientSecret(res.data.clientSecret);
+                })
         }
 
     }, [axiosSecure, price])
@@ -77,16 +90,26 @@ const CheckoutForm = () => {
             if (paymentIntent.status === 'succeeded') {
                 console.log('transaction id', paymentIntent.id);
                 setTransactionId(paymentIntent.id);
-                
+
                 const payment = {
                     email: user.email,
                     price: price,
                     transactionId: paymentIntent.id,
-                    date: new Date(), 
-                    status: 'pending'
+                    date: moment().format('MMMM Do YYYY, h:mm:ss a'),
+                    status: 'success',
+                    expiredDate: expired,
                 }
+
+                console.log(payment);
                 const res = await axiosSecure.post('/payments', payment);
+                const makePremium = await axiosSecure.patch(`/users/${user.email}`,{
+                     subscript : 'premium',
+                     premiumExpiresIn : expired,
+                })
+
+                console.log(makePremium);
                 console.log(res.data);
+
                 if (res.data?.insertedId) {
                     Swal.fire({
                         position: "center",
@@ -105,29 +128,29 @@ const CheckoutForm = () => {
 
     return (
         <div className="w-2/3 mx-auto my-16 border-2 p-4">
-        <form onSubmit={handleSubmit}>
-            <CardElement
-                options={{
-                    style: {
-                        base: {
-                            fontSize: '20px',
-                            color: '#00000',
-                            '::placeholder': {
+            <form onSubmit={handleSubmit}>
+                <CardElement
+                    options={{
+                        style: {
+                            base: {
+                                fontSize: '20px',
                                 color: '#00000',
+                                '::placeholder': {
+                                    color: '#00000',
+                                },
+                            },
+                            invalid: {
+                                color: '#9e2146',
                             },
                         },
-                        invalid: {
-                            color: '#9e2146',
-                        },
-                    },
-                }}
-            />
-            <button className="btn btn-primary my-10 w-full text-white text-2xl" type="submit" disabled={!stripe || !clientSecret}>
-                Subscribe
-            </button>
-            <p className="text-red-600">{error}</p>
-            {transactionId && <p className="text-green-600"> Your transaction id: {transactionId}</p>}
-        </form>
+                    }}
+                />
+                <button className="btn btn-primary my-10 w-full text-white text-2xl" type="submit" disabled={!stripe || !clientSecret}>
+                    Subscribe
+                </button>
+                <p className="text-red-600">{error}</p>
+                {transactionId && <p className="text-green-600"> Your transaction id: {transactionId}</p>}
+            </form>
         </div>
     );
 };

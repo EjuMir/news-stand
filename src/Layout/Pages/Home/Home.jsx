@@ -1,6 +1,10 @@
 import Publisher from '../../../Components/Publisher/Publisher';
 import Slider from '../../../Components/Slider/Slider'
 const Home = () => {
+
+    const time = new Date().getTime();
+    console.log(time);
+
     return (
         <div>
             <div className='my-14'>

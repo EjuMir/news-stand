@@ -30,7 +30,6 @@ const Subscription = () => {
 
 
     const onSubmit = (data) => {
-        console.log(data.pricing);
         setPriceFix(data.pricing)
         setCheck(true)
 
@@ -84,8 +83,8 @@ const Subscription = () => {
 
                     </div>
                         :
-                        <div onClick={handleSub}>
-                            <div className="flex flex-col border-2 lg:w-1/3 bg-black rounded-lg mx-auto my-14 hover:bg-gray-500 hover:cursor-pointer">
+                        <div>
+                            <div onClick={handleSub} className="flex flex-col border-2 lg:w-1/3 bg-black rounded-lg mx-auto my-14 hover:bg-gray-500 hover:cursor-pointer">
                                 <h2 className=" font-bold text-center text-4xl p-4 text-orange-500">Premium</h2>
                                 <hr />
                                 <div>

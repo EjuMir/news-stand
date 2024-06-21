@@ -69,7 +69,8 @@ const SignUp = () => {
                             email: result.user.email,
                             image: result.user.photoURL,
                             createdAccount: result.user.metadata.creationTime,
-                            lastLogin: result.user.metadata.lastSignInTime
+                            lastLogin: result.user.metadata.lastSignInTime,
+                            subscript: 'normal', 
                         }
                         newUser.post('/users', userInfo)
                             .then(res => {

@@ -41,7 +41,8 @@ const SignIn = () => {
                     email: data.user.email,
                     image: data.user.photoURL,
                     createdAccount: data.user.metadata.creationTime,
-                    lastLogin: data.user.metadata.lastSignInTime 
+                    lastLogin: data.user.metadata.lastSignInTime,
+                    subscript: 'normal', 
                 }
                 users.post('/users', userInfo)
                 .then(() => {
