@@ -8,6 +8,7 @@ import { AuthFirebase } from "../../../Authentication/Firebase";
 import useAllNews from "../../../Hooks/useAllNews";
 import { useNavigate } from "react-router-dom";
 import useAllPublishers from "../../../Hooks/useAllPublishers";
+import useAllUser from "../../../Hooks/useAllUser";
 
 //imgbb keys
 const imageHostingKey = import.meta.env.VITE_imgbbApiKey;
@@ -27,6 +28,7 @@ const AddArticle = () => {
 
     const [allNews] = useAllNews();
     const [allPublisher] = useAllPublishers();
+    const [allUser] = useAllUser()
 
     const axiosPublic = useAxiosPublic();
     const axiosSecure = useAxiosSecure();
@@ -49,154 +51,166 @@ const AddArticle = () => {
         { value: 'science', label: 'science' },
     ];
 
-    
- let allOption = [];
- for(let i = 0; i < allPublisher.length; i++) {
-    allOption[i] = { value: allPublisher[i].name, label: allPublisher[i].name }
-    allOption.push(allOption[i])
- }
+
+    let allOption = [];
+    for (let i = 0; i < allPublisher.length; i++) {
+        allOption[i] = { value: allPublisher[i].name, label: allPublisher[i].name }
+        allOption.push(allOption[i])
+    }
 
     const onSubmit = async (data) => {
-        
-        const existingUser = allNews.find(news => news.email == user?.email);
-        if (existingUser.subscription == "normal") {
-             return navigate('/subscription') 
-        }
 
-        const imageFile = { image: data.image[0] }
-        console.log(imageFile);
-        const res = await axiosPublic.post(imageHostingUrl, imageFile, {
-            headers: {
-                'content-type': 'multipart/form-data'
-            }
-
-        });
-        
-        if (res.data.success) {
-            const articleInfo = {
-                email: user.email,
-                title: data.title,
-                image: res.data.data.display_url,
-                publisher: data.publisher,
-                description: data.description,
-                tags: data.tag,
-                date: currentDate, 
-                status: "Pending",
-                subscription: "normal",
-            }
-           
-            const articlePost = await axiosSecure.post('/articleReq', articleInfo);
-            
-            if (articlePost.data.insertedId) {
-                reset();
+        const existingUser = allUser.find(elem => elem.email == user?.email);
+        if (existingUser.subscript == "normal") {
                 Swal.fire({
                     position: "center",
-                    icon: "info",
-                    title: `Your post '${data.title}' is waiting for Approval`,
-                    showConfirmButton: false,
-                    timer: 1500
-                });
-
-            }
+                    icon: "error",
+                    title: 'For Unlimited Posting Please Subscribe to Premium First',
+                    showConfirmButton: true,
+                })
+                return navigate('/subscription') 
         }
+
+const imageFile = { image: data.image[0] }
+// console.log(imageFile);
+const res = await axiosPublic.post(imageHostingUrl, imageFile, {
+    headers: {
+        'content-type': 'multipart/form-data'
+    }
+
+});
+
+if (res.data.success) {
+    const articleInfo = {
+        email: user.email,
+        title: data.title,
+        image: res.data.data.display_url,
+        publisher: data.publisher,
+        description: data.description,
+        tags: data.tag,
+        date: currentDate,
+        status: "Pending",
+        subscription: "normal",
+    }
+
+    const articlePost = await axiosSecure.post('/articleReq', articleInfo);
+
+    if (articlePost.data.insertedId) {
+        reset();
+        Swal.fire({
+            position: "center",
+            icon: "info",
+            title: `Your post '${data.title}' is waiting for Approval`,
+            showConfirmButton: false,
+            timer: 1500
+        });
+
+    }
+}
     };
 
-    return (
-        <div className="w-3/4 mx-auto my-16 bg-red-400 p-4 rounded-md">
-            <div>
-                <form onSubmit={handleSubmit(onSubmit)}>
-                    <div className="form-control">
+return (
+    <div className="w-3/4 mx-auto my-16 bg-red-400 p-4 rounded-md">
+        <div>
+            <form onSubmit={handleSubmit(onSubmit)}>
+                <div className="form-control">
                     <label className="label text-end">
-                            <span className="label-text text-white font-bold text-lg text-end">Date</span>
+                        <span className="label-text text-white font-bold text-lg text-end">Date</span>
                     </label>
-                      <h1 className="font-bold " {...register('date', {value : {currentDate}})}>{currentDate}</h1>
-                    </div>
-                    <div className="form-control w-full my-6">
-                        <label className="label">
-                            <span className="label-text text-white font-bold text-lg">Article Title</span>
-                        </label>
-                        <input
-                            type="text"
-                            placeholder="Write your article title here"
-                            {...register('title', { required: {
-                                value : true,
+                    <h1 className="font-bold " {...register('date', { value: { currentDate } })}>{currentDate}</h1>
+                </div>
+                <div className="form-control w-full my-6">
+                    <label className="label">
+                        <span className="label-text text-white font-bold text-lg">Article Title</span>
+                    </label>
+                    <input
+                        type="text"
+                        placeholder="Write your article title here"
+                        {...register('title', {
+                            required: {
+                                value: true,
                                 message: "Please enter a title",
-                            } })}
-                            required
-                            className="input input-bordered w-full" />
-                    </div>
-                    <div className="form-control">
-                        <label className="label">
-                            <span className="label-text text-white font-bold text-lg">Title Description</span>
-                        </label>
-                        <textarea {...register('description', {required : {
+                            }
+                        })}
+                        required
+                        className="input input-bordered w-full" />
+                </div>
+                <div className="form-control">
+                    <label className="label">
+                        <span className="label-text text-white font-bold text-lg">Title Description</span>
+                    </label>
+                    <textarea {...register('description', {
+                        required: {
                             value: true,
-                            message : "Please enter description"
-                        }})} className="textarea textarea-bordered h-24" placeholder="Write About Your Article"></textarea>
-                    </div>
-                    <div className="flex gap-6">
-                        <div className="form-control w-full my-6">
-                            <label className="label">
-                                <span className="label-text text-white font-bold text-lg">Tag</span>
-                            </label>
-                            <Controller
-                                control={control}
-                                defaultValue={tagOption.map(c => c.value[0])}
-                                name="tag"
-                                render={({ field: { onChange, value, ref } }) => (
-                                    <Select
-                                        inputRef={ref}
-                                        value={tagOption.filter(c => value.includes(c.value))}
-                                        onChange={val => onChange(val.map(c => c.value))}
-                                        options={tagOption}
-                                        isMulti
-                                    />
-                                )}
-                            />
-                        </div>
-
-                        <div className="form-control w-full my-6">
-                            <label className="label">
-                                <span className="label-text text-white font-bold text-lg">Publisher</span>
-                            </label>
-                            <Controller
-                                control={control}
-                                defaultValue={allPublisher.map(c => c.name[0])}
-                                name="publisher"
-                                render={({ field: { onChange, value, ref } }) => (
-                                    <Select
-                                        inputRef={ref}
-                                        value={allOption.filter(c => value.includes(c.value))}
-                                        onChange={val => onChange(val.value)}
-                                        options={allOption}
-                                    />
-                                )}
-                            />
-                        </div>
-                    </div>
+                            message: "Please enter description"
+                        }
+                    })} className="textarea textarea-bordered h-24" placeholder="Write About Your Article"></textarea>
+                </div>
+                <div className="flex gap-6">
                     <div className="form-control w-full my-6">
                         <label className="label">
-                            <span className="label-text text-white font-bold text-lg">Add An Eye-Catching Image :</span>
+                            <span className="label-text text-white font-bold text-lg">Tag</span>
                         </label>
-                        <input {...register('image', { required: {
+                        <Controller
+                            control={control}
+                            defaultValue={tagOption.map(c => c.value[0])}
+                            name="tag"
+                            render={({ field: { onChange, value, ref } }) => (
+                                <Select
+                                    inputRef={ref}
+                                    value={tagOption.filter(c => value.includes(c.value))}
+                                    onChange={val => onChange(val.map(c => c.value))}
+                                    options={tagOption}
+                                    isMulti
+                                />
+                            )}
+                        />
+                    </div>
+
+                    <div className="form-control w-full my-6">
+                        <label className="label">
+                            <span className="label-text text-white font-bold text-lg">Publisher</span>
+                        </label>
+                        <Controller
+                            control={control}
+                            defaultValue={allPublisher.map(c => c.name[0])}
+                            name="publisher"
+                            render={({ field: { onChange, value, ref } }) => (
+                                <Select
+                                    inputRef={ref}
+                                    value={allOption.filter(c => value.includes(c.value))}
+                                    onChange={val => onChange(val.value)}
+                                    options={allOption}
+                                />
+                            )}
+                        />
+                    </div>
+                </div>
+                <div className="form-control w-full my-6">
+                    <label className="label">
+                        <span className="label-text text-white font-bold text-lg">Add An Eye-Catching Image :</span>
+                    </label>
+                    <input {...register('image', {
+                        required: {
                             value: true,
                             message: "Please upload an image"
-                        } })} type="file" className="file-input w-full max-w-xs bg-white" />
-                    </div>
-                    <div className="form-control mb-6">
+                        }
+                    })} type="file" className="file-input w-full max-w-xs bg-white" />
+                </div>
+                <div className="form-control mb-6">
                     <label className="label text-end">
-                            <span className="label-text text-white font-bold text-lg text-end">Your Email :</span>
+                        <span className="label-text text-white font-bold text-lg text-end">Your Email :</span>
                     </label>
-                      <h1 className="font-bold " {...register('email', {value : {user}})}>{user.email}</h1>
-                    </div>
-                    {
+                    <h1 className="font-bold " {...register('email', { value: { user } })}>{user.email}</h1>
+                </div>
+                {
 
-                    }
-                    <button className="btn w-full"> Publish </button>
-                </form>
-            </div>
+                }
+                <button className="btn w-full"> Publish </button>
+            </form>
         </div>
-    );
+    </div>
+);
 };
 
 export default AddArticle;

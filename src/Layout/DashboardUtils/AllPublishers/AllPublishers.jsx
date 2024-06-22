@@ -13,7 +13,7 @@ const AllPublishers = () => {
         const form = new FormData(data.currentTarget);
         const name = form.get('name');
         const photoUrl = form.get('image');
-        console.log(name, photoUrl);
+        // console.log(name, photoUrl);
 
         const imageFile = { image: photoUrl}
     

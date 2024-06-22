@@ -5,7 +5,6 @@ import Navbar from "../../Layout/Navbar/Navbar";
 const DashBoard = () => {
     return (
         <div>
-            <Navbar></Navbar>
             <Sidebar></Sidebar>
         </div>
     );

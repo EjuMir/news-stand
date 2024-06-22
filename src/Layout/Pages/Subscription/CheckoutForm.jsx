@@ -31,13 +31,11 @@ const CheckoutForm = () => {
         expired = new Date().getTime()+864000000;
     }
 
-    console.log(expired);
-
     useEffect(() => {
         if (price > 0) {
             axiosSecure.post('/create-payment-intent', { price: price })
                 .then(res => {
-                    console.log(res.data.clientSecret);
+                    // console.log(res.data.clientSecret);
                     setClientSecret(res.data.clientSecret);
                 })
         }
@@ -63,11 +61,11 @@ const CheckoutForm = () => {
         })
 
         if (error) {
-            console.log('payment error', error);
+            // console.log(error);
             setError(error.message);
         }
         else {
-            console.log('payment method', paymentMethod)
+            // console.log(paymentMethod)
             setError('');
         }
 
@@ -86,11 +84,9 @@ const CheckoutForm = () => {
             console.log('confirm error')
         }
         else {
-            console.log('payment intent', paymentIntent)
+            // console.log(paymentIntent)
             if (paymentIntent.status === 'succeeded') {
-                console.log('transaction id', paymentIntent.id);
                 setTransactionId(paymentIntent.id);
-
                 const payment = {
                     email: user.email,
                     price: price,
@@ -100,15 +96,11 @@ const CheckoutForm = () => {
                     expiredDate: expired,
                 }
 
-                console.log(payment);
                 const res = await axiosSecure.post('/payments', payment);
                 const makePremium = await axiosSecure.patch(`/users/${user.email}`,{
                      subscript : 'premium',
                      premiumExpiresIn : expired,
                 })
-
-                console.log(makePremium);
-                console.log(res.data);
 
                 if (res.data?.insertedId) {
                     Swal.fire({
@@ -149,7 +141,6 @@ const CheckoutForm = () => {
                     Subscribe
                 </button>
                 <p className="text-red-600">{error}</p>
-                {transactionId && <p className="text-green-600"> Your transaction id: {transactionId}</p>}
             </form>
         </div>
     );

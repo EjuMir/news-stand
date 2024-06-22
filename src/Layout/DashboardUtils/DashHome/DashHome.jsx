@@ -13,7 +13,7 @@ const DashHome = () => {
     for (let i = 0; i < publisher.length; i++) {
         pieChart.push([publisher[i], (allArticles.filter(article => article.publisher == publisher[i]).length)])
     }
-    console.log(pieChart);
+    // console.log(pieChart);
 
     const optionsPie = {
         title: "Publishers Posting Article Ratio",

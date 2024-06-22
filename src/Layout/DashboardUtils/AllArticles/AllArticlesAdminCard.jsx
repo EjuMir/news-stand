@@ -31,7 +31,7 @@ const AllArticlesAdminCard = ({ pending, refetch }) => {
         const statusChange = await axiosSecure.patch(`/articleReq/${_id}`,{
             status: 'Approved'
         });
-        console.log(statusChange.data.matchedCount);
+        // console.log(statusChange.data.matchedCount);
         if (statusChange.data.matchedCount) {
             refetch();
             Swal.fire({
@@ -56,14 +56,14 @@ const AllArticlesAdminCard = ({ pending, refetch }) => {
         }
 
         const articlePost = await axiosSecure.post('/allNews', postInfo)
-        console.log(articlePost);
+        // console.log(articlePost);
 
     }
 
     //Delete Post
     const handleDelete = async (id) => {
         const deleteOne = await axiosSecure.delete(`/allNews/${id}`);
-        console.log(deleteOne);
+        // console.log(deleteOne);
         const deleteArticleList = await axiosSecure.delete(`/articleReq/${id}`);
         if (deleteArticleList.data.deletedCount > 0) {
             refetch();
@@ -105,7 +105,7 @@ const AllArticlesAdminCard = ({ pending, refetch }) => {
             });
            closeModal();
         }
-        console.log(decline);
+        // console.log(decline);
     }
 
     //make premium post
@@ -119,7 +119,7 @@ const AllArticlesAdminCard = ({ pending, refetch }) => {
             subscription : "premium",
             status: 'Approved',
           })
-        console.log(makePremium);
+        // console.log(makePremium);
           if(makePremium.data.updateSubscription.matchedCount > 0) {
             refetch();
             Swal.fire({

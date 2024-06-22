@@ -31,10 +31,10 @@ const MyArticle = () => {
     const handleDelete = async (id) => {
 
         const deleteOne = await axiosSecure.delete(`/allNews/${id}`);
-        console.log(deleteOne);
+        // console.log(deleteOne);
 
         const deleteArticleList = await axiosSecure.delete(`/articleReq/${id}`);
-        console.log(deleteArticleList);
+        // console.log(deleteArticleList);
         if (deleteArticleList.data.deletedCount > 0) {
             refetch();
             Swal.fire({
@@ -103,9 +103,12 @@ const MyArticle = () => {
                                 <td>
                                     <Link to={`/details/${article._id}`}><button className="btn btn-accent text-white mr-2">Details</button></Link>
                                     {
-                                       article.status == "Declined" ?  '' : <button className="btn btn-primary mr-2">Update</button>
+                                       article.status == "Declined" ?  '' :  <button onClick={() => handleDelete(article._id)} className="btn bg-red-600 text-white mr-2">Delete</button>
                                     }
-                                    <button onClick={() => handleDelete(article._id)} className="btn bg-red-600 text-white">Delete</button>
+                                    {
+                                       article.status == "Pending" ? '' :  <button className="btn btn-primary mr-2">Update</button>
+                                    }
+                                  
                                 </td>
                             </tr>)
                         }

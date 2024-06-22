@@ -8,9 +8,9 @@ const Details = () => {
     const params = useParams();
     
     const newsDetail = details.find(detail => detail._id === params.id);
-    console.log(newsDetail);
+    // console.log(newsDetail);
     const myArticle = myArticleDetail.find(detail => detail._id === params.id);
-    console.log(myArticle);
+    // console.log(myArticle);
 
     return (
         <div>
