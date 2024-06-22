@@ -47,7 +47,7 @@ const AllPublishers = () => {
 
 
     return (
-        <div>
+        <div className="my-20">
             <form onSubmit={handlePublisher}>
                 <div className="bg-black p-10 text-center w-2/3 rounded-lg mx-auto">
                     <h2 className="font-bold text-2xl text-red-300 p-2 bg-black">Add Your Publisher</h2>

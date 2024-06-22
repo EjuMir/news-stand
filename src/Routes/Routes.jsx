@@ -21,6 +21,7 @@ import AdminRoute from "../PrivateRoute/AdminRoute";
 import UpdateProfile from "../Layout/Pages/UpdateProfile/UpdateProfile";
 import DashHome from "../Layout/DashboardUtils/DashHome/DashHome";
 import Subscription from "../Layout/Pages/Subscription/Subscription";
+import UpdateArticle from "../Layout/Pages/UpdateArticle/UpdateArticle";
 
 export const router = createBrowserRouter([
   {
@@ -71,6 +72,10 @@ export const router = createBrowserRouter([
       {
         path: '/updateProfile',
         element:<PrivateRoute><UpdateProfile></UpdateProfile></PrivateRoute>
+      },
+      {
+        path:'/updateArticles/:id',
+        element: <PrivateRoute><UpdateArticle></UpdateArticle></PrivateRoute>
       }
     ]
   },

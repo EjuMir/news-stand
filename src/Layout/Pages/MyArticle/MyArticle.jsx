@@ -1,7 +1,7 @@
 import { useContext, useState } from "react";
 import { AuthFirebase } from "../../../Authentication/Firebase";
 import useArticleReq from "../../../Hooks/useArticleReq"
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import Swal from "sweetalert2";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 import Modal from 'react-modal';
@@ -24,7 +24,6 @@ const MyArticle = () => {
     const { user } = useContext(AuthFirebase);
     const [article, refetch] = useArticleReq();
     const axiosSecure = useAxiosSecure();
-
 
     const filter = article.filter(element => element.email === user?.email);
 
@@ -105,10 +104,11 @@ const MyArticle = () => {
                                     {
                                        article.status == "Declined" ?  '' :  <button onClick={() => handleDelete(article._id)} className="btn bg-red-600 text-white mr-2">Delete</button>
                                     }
+                                    <Link to={`/updateArticles/${article._id}`}>
                                     {
                                        article.status == "Pending" ? '' :  <button className="btn btn-primary mr-2">Update</button>
                                     }
-                                  
+                                  </Link>
                                 </td>
                             </tr>)
                         }

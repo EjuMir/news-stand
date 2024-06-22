@@ -28,11 +28,11 @@ const AllArticlesAdminCard = ({ pending, refetch }) => {
 
     //Approve Post
     const handleApprove = async (pending, _id) => {
-        const statusChange = await axiosSecure.patch(`/articleReq/${_id}`,{
+        const statusChange = await axiosSecure.patch(`/articleReq/${_id}`, {
             status: 'Approved'
         });
-        // console.log(statusChange.data.matchedCount);
-        if (statusChange.data.matchedCount) {
+        console.log(statusChange);
+        if (statusChange.data.result.matchedCount > 0) {
             refetch();
             Swal.fire({
                 position: "top-end",
@@ -87,14 +87,14 @@ const AllArticlesAdminCard = ({ pending, refetch }) => {
         setIsOpen(false);
     }
 
-    const handleDecline = async(e) => { 
+    const handleDecline = async (e) => {
         e.preventDefault();
         const form = e.target.reason.value;
         const decline = await axiosSecure.patch(`/articleReq/${_id}`, {
-            declineReason : form,
-            status : "Declined"
+            declineReason: form,
+            status: "Declined"
         })
-        if(decline.data.modifiedCount > 0) {
+        if (decline.data.modifiedCount > 0) {
             refetch();
             Swal.fire({
                 position: "top-end",
@@ -103,24 +103,24 @@ const AllArticlesAdminCard = ({ pending, refetch }) => {
                 showConfirmButton: false,
                 timer: 1500,
             });
-           closeModal();
+            closeModal();
         }
         // console.log(decline);
     }
 
     //make premium post
-    const handleMakePremium = async(id) => {
-          const subscript = await axiosSecure.patch(`/articleReq/${id}`, {
-              subscription : "premium",
-              status: 'Approved',
-          })
-
-         const makePremium =  await axiosSecure.patch(`/allNews/${id}`, {
-            subscription : "premium",
+    const handleMakePremium = async (id) => {
+        const subscript = await axiosSecure.patch(`/articleReq/${id}`, {
+            subscription: "premium",
             status: 'Approved',
-          })
+        })
+
+        const makePremium = await axiosSecure.patch(`/allNews/${id}`, {
+            subscription: "premium",
+            status: 'Approved',
+        })
         // console.log(makePremium);
-          if(makePremium.data.updateSubscription.matchedCount > 0) {
+        if (makePremium.data.updateSubscription.matchedCount > 0) {
             refetch();
             Swal.fire({
                 icon: 'success',
@@ -128,7 +128,32 @@ const AllArticlesAdminCard = ({ pending, refetch }) => {
                 showConfirmButton: false,
                 timer: 1500
             });
-          } 
+        }
+    }
+    //approve update
+    const handleApproveUpdate = async(id) => {
+
+        const updateArticle = {
+            title: pending.title,
+            image: pending.image,
+            description: pending.description,
+            status: "Approved",
+        }
+
+        const updateDoc = await axiosSecure.patch(`/allNews/${id}`, updateArticle)
+        if(updateDoc.data.updateInfo.matchedCount > 0) {
+            axiosSecure.patch(`/articleReq/${id}`, {
+                 status: "Approved",
+            })
+            refetch();
+            Swal.fire({
+                position: "top-end",
+                icon: "success",
+                title: "Article Updated Successfully",
+                showConfirmButton: false,
+                timer: 1500,
+            })
+        }
     }
 
     return (
@@ -173,6 +198,9 @@ const AllArticlesAdminCard = ({ pending, refetch }) => {
                         <div>
                             <button onClick={() => handleDelete(_id)} className="btn bg-red-600 text-white font-bold mr-2">Delete</button>
                             <button onClick={() => handleMakePremium(_id)} className="btn bg-black text-orange-500 font-bold">Make Premium</button>
+                            {
+                                status == 'UpdateRequest' &&  <button onClick={() => handleApproveUpdate(_id)} className="btn bg-green-400 text-cyan-700 font-bold mt-1">Approve Update</button>
+                            }
                         </div>
                 }
 
