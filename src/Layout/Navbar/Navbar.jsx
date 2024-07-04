@@ -90,13 +90,13 @@ const Navbar = ({ value }) => {
                         <img className="w-12 h-12 lg:w-20 lg:h-16" src="https://images.vexels.com/media/users/3/131563/isolated/preview/93e49b6c5668d156aaee447bd9804fab-newspaper-circle-icon.png" alt="" />
                     </div>
                 </NavLink>
-                <div>
+                <div className="bg-white p-1 rounded-md">
                     {
-                        subscriptionMessage == 'Admin' ? <div className="p-1 bg-white rounded-md"><h2 className="text-green-500 font-bold">Admin</h2></div>  : <div className="bg-white h-fit rounded-md p-1">{
-                            subscriptionMessage == 'Subscribed' ? <h2 className="text-green-600 font-bold text-xs">Subscribed</h2> : <h2 className="text-red-600 font-bold text-xs">Unsubscribed</h2>
-                        }
-                        </div>
+                        isAdmin ? <h2 className="text-green-600 font-bold">Admin</h2> : <div>{
+                            subscriptionMessage == 'Subscribed' ? <h2 className="text-green-600 font-bold text-xs">Subscribed</h2> : <h2 className="text-red-600 font-bold text-xs">Unsubscribed</h2> 
+                         } </div>
                     }
+                    
                 </div>
                 
             </div>

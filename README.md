@@ -1,5 +1,5 @@
 Website Name --> News Stand
-Website Link --> 
+Website Link --> https://news-stand-bce00.web.app/
 
 Admin ID --> test@test.com
 Admin Password --> a12345678A$
